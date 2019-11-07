@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using System;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
 {
@@ -9,7 +9,6 @@ namespace ConfigurationManager.Api
 
         //TODO: each application has to have its own instance of consul, which have to live as long
         // as application
-
         public Manager()
         {
             //intentionally left blank
@@ -33,7 +32,7 @@ namespace ConfigurationManager.Api
             throw new NotImplementedException();
         }
 
-        public async Task<bool> RefreshAsync()
+        public async Task<bool> CleanInstanceAsync()
         {
             throw new NotImplementedException();
         }
