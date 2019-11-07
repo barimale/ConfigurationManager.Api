@@ -3,3 +3,5 @@
 ################################################################################
 
 /ConfigurationManager.Api/.vs/ConfigurationManager.Api/v16
+/ConfigurationManager.Api/ConfigurationManager.Api/obj
+/ConfigurationManager.Api/UT.ConfigurationManager.Api/obj
