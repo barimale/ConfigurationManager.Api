@@ -5,3 +5,6 @@
 /ConfigurationManager.Api/.vs/ConfigurationManager.Api/v16
 /ConfigurationManager.Api/ConfigurationManager.Api/obj
 /ConfigurationManager.Api/UT.ConfigurationManager.Api/obj
+/ConfigurationManager.Api/.vs/ConfigurationManager.Api/DesignTimeBuild
+/ConfigurationManager.Api/ConfigurationManager.Api/bin/Debug/netcoreapp3.0
+/ConfigurationManager.Api/UT.ConfigurationManager.Api/bin/Debug/netcoreapp3.0

@@ -1,35 +1,86 @@
-﻿using System;
+﻿using Consul;
+using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
 {
     public class Manager : IManager
     {
-        private string Url;
+        private readonly string HostName;
+        private readonly int Port;
+        private readonly string ServiceHostName;
 
-        //TODO: each application has to have its own instance of consul, which have to live as long
-        // as application
-        public Manager()
-        {
-            //intentionally left blank
-        }
+        private IConsulClient _client;
 
-        public Manager(string url)
-            :this()
+        public Manager(string hostname, int port, string serviceHostName = "")
         {
-            Url = url;
-            //TODO: create instance of Consul, or connect to your own instance
-            //remove all keys and values
+            HostName = hostname;
+            Port = port;
+            ServiceHostName = serviceHostName;
+
+            _client = new ConsulClient(consulConfig =>
+            {
+                var address = string.Concat(hostname, ":", Port);
+                consulConfig.Address = new Uri(address);
+            }, null, handlerOverride =>
+            {
+                handlerOverride.Proxy = null;
+                handlerOverride.UseProxy = false;
+            });
         }
 
         public async Task<bool> AddAsync(string key, string value)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var pair = new KVPair(key)
+                {
+                    Value = Encoding.UTF8.GetBytes(value)
+                };
+
+                var result = await _client.KV.Put(pair);
+
+                return result.Response;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public async Task<bool> RemoveAsync(string key, string value)
+        public async Task<bool> RemoveAsync(string key)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _client.ACL.Destroy(key);
+
+                return result.Response;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<string> GetAsync(string key)
+        {
+            try
+            {
+                var str = string.Empty;
+                var res = await _client.KV.Get(key);
+
+                if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                { 
+                    str = Encoding.UTF8.GetString(res.Response.Value);
+                }
+
+                return str;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
         }
 
         public async Task<bool> CleanInstanceAsync()
@@ -37,14 +88,9 @@ namespace ConfigurationManager.Api
             throw new NotImplementedException();
         }
 
-        public Task<bool> ConnectAsync()
+        public bool IsConnected()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ConnectAsync(string url)
-        {
-            throw new NotImplementedException();
+            return _client != null;
         }
     }
 }
