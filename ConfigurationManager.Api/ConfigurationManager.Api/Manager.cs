@@ -7,6 +7,7 @@ namespace ConfigurationManager.Api
 {
     public class Manager : IManager
     {
+        private readonly string MainFolder;
         private readonly string HostName;
         private readonly int Port;
         private readonly string ServiceHostName;
@@ -21,7 +22,7 @@ namespace ConfigurationManager.Api
 
             _client = new ConsulClient(consulConfig =>
             {
-                var address = string.Concat(hostname, ":", Port);
+                var address = string.Concat(HostName, ":", Port);
                 consulConfig.Address = new Uri(address);
             }, null, handlerOverride =>
             {
@@ -30,13 +31,49 @@ namespace ConfigurationManager.Api
             });
         }
 
-        public async Task<bool> AddAsync(string key, string value)
+        public Manager(string hostname, int port, string serviceHostName, string mainFolder)
+            : this(hostname, port, serviceHostName)
+        {
+            MainFolder = mainFolder;
+            AddFolderAsync(MainFolder);
+        }
+
+        public async Task<bool> AddAsync(string key, string value, bool toMainFolder = false)
         {
             try
             {
+                if(toMainFolder)
+                {
+                    var a = await _client.KV.List(MainFolder);
+                }
+
                 var pair = new KVPair(key)
                 {
                     Value = Encoding.UTF8.GetBytes(value)
+                };
+                
+                var result = await _client.KV.Put(pair);
+
+                return result.Response;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> AddFolderAsync(string key)
+        {
+            try
+            {
+                if(!key.EndsWith("/"))
+                {
+                    key = string.Concat(key, "/");
+                }
+
+                var pair = new KVPair(key)
+                {
+                    Value = Encoding.UTF8.GetBytes(string.Empty)
                 };
 
                 var result = await _client.KV.Put(pair);
@@ -49,11 +86,28 @@ namespace ConfigurationManager.Api
             }
         }
 
+        public async Task<bool> RemoveFolderAsync(string key)
+        {
+            try
+            {
+                if (!key.EndsWith("/"))
+                {
+                    key = string.Concat(key, "/");
+                }
+
+                return await RemoveAsync(key);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<bool> RemoveAsync(string key)
         {
             try
             {
-                var result = await _client.ACL.Destroy(key);
+                var result = await _client.KV.Delete(key);
 
                 return result.Response;
             }
@@ -67,19 +121,18 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                var str = string.Empty;
                 var res = await _client.KV.Get(key);
 
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 { 
-                    str = Encoding.UTF8.GetString(res.Response.Value);
+                    return Encoding.UTF8.GetString(res.Response.Value);
                 }
 
-                return str;
+                return string.Empty;
             }
             catch (Exception)
             {
-                return string.Empty;
+                throw;
             }
         }
 
