@@ -19,10 +19,10 @@ jobs:
       run: nuget sources Add -Name "GitHub" -Source "https://nuget.pkg.github.com/barimale/index.json" -UserName barimale -Password ${{ secrets.GITHUB_TOKEN }}
       
     - name: Nuget Restore 
-      run: nuget restore .\ConfigurationManager.Api\ConfigurationManager.Api.sln
+      run: nuget restore .\ConfigurationManager.Api.sln
 
     - name: Build Solution 
-      run: dotnet build .\ConfigurationManager.Api\ConfigurationManager.Api.sln --configuration Release
+      run: dotnet build .\ConfigurationManager.Api.sln --configuration Release
 
     - name: Nuget Pack
       run: nuget pack .\ConfigurationManager.Api\pack.nuspec -Properties Configuration=Release -OutputDirectory .\nugetPackages
