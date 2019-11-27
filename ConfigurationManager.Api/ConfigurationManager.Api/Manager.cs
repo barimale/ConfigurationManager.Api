@@ -158,7 +158,7 @@ namespace ConfigurationManager.Api
         Task<string> IFolderPerspective.GetAsync(string key)
         {
             var finalKey = string.Concat(GetLocationPath(), "/", key);
-            return GetAsync(key);
+            return GetAsync(finalKey);
         }
 
         Task<bool> IFolderPerspective.AddAsync(string key, string value)
