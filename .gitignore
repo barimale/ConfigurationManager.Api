@@ -8,3 +8,5 @@
 /ConfigurationManager.Api/.vs/ConfigurationManager.Api/DesignTimeBuild
 /ConfigurationManager.Api/ConfigurationManager.Api/bin/Debug/netcoreapp3.0
 /ConfigurationManager.Api/UT.ConfigurationManager.Api/bin/Debug/netcoreapp3.0
+obj
+obj
