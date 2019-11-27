@@ -86,7 +86,6 @@ namespace UT.ConfigurationManager.Api
                 InputData.Port,
                 InputData.ServiceHostName);
 
-            var isConnected = service.IsConnected();
             var addedFolder = await service.AddFolderAsync(folderName);
             var key = "foo";
 
