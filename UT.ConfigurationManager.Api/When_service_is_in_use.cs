@@ -71,8 +71,16 @@ namespace UT.ConfigurationManager.Api
             Assert.NotNull(addedFolder);
 
             //and then
+            var isGet = await service.GetFolderAsync(folderName);
+            Assert.NotNull(isGet);
+
+            //and then
             var isRemoved = await service.RemoveFolderAsync(addedFolder);
             Assert.IsTrue(isRemoved);
+
+            //and then
+            var isGetAgain = await service.GetFolderAsync(folderName);
+            Assert.Null(isGetAgain);
         }
 
         [Test]

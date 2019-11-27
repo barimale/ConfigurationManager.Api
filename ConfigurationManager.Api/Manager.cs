@@ -63,23 +63,46 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<IFolderPerspective> AddFolderAsync(string folderName)
+        public async Task<IFolderPerspective> AddFolderAsync(string name)
         {
             try
             {
-                if(!folderName.EndsWith("/"))
+                if(!name.EndsWith("/"))
                 {
-                    folderName = string.Concat(folderName, "/");
+                    name = string.Concat(name, "/");
                 }
 
-                var pair = new KVPair(folderName)
+                var pair = new KVPair(name)
                 {
                     Value = Encoding.UTF8.GetBytes(string.Empty)
                 };
 
                 var result = await _client.KV.Put(pair);
 
-                return result.Response ? new Manager(HostName, Port, ServiceHostName, folderName, this) : throw new Exception();
+                return result.Response ? new Manager(HostName, Port, ServiceHostName, name, this) : throw new Exception();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IFolderPerspective> GetFolderAsync(string name)
+        {
+            try
+            {
+                if (!name.EndsWith("/"))
+                {
+                    name = string.Concat(name, "/");
+                }
+
+                var alreadyExist = await _client.KV.Get(name);
+                if (alreadyExist == null || alreadyExist.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return null;
+                }
+
+                return new Manager(HostName, Port, ServiceHostName, name, this);
             }
             catch (Exception)
             {

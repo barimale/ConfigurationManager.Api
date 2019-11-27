@@ -10,3 +10,6 @@
 /ConfigurationManager.Api/UT.ConfigurationManager.Api/bin/Debug/netcoreapp3.0
 obj
 obj
+/.vs/ConfigurationManager.Api
+/ConfigurationManager.Api/bin/Debug/netcoreapp3.0
+/UT.ConfigurationManager.Api/bin/Debug/netcoreapp3.0
