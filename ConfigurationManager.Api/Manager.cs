@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
 {
-    public class Manager : IManager, IFolderPerspective
+    public class Manager : IManager, IReadOnly
     {
         private readonly string MainFolder;
         private readonly string HostName;
@@ -63,7 +63,7 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<IFolderPerspective> AddFolderAsync(string name)
+        public async Task<IManager> AddFolderAsync(string name)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<IFolderPerspective> GetFolderAsync(string name)
+        public async Task<IManager> GetFolderAsync(string name)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<bool> RemoveFolderAsync(IFolderPerspective service)
+        public async Task<bool> RemoveFolderAsync(IManager service)
         {
             try
             {
@@ -178,22 +178,27 @@ namespace ConfigurationManager.Api
             return Parent != null;
         }
 
-        Task<string> IFolderPerspective.GetAsync(string key)
+        Task<string> IReadOnly.GetAsync(string key)
         {
             var finalKey = string.Concat(GetLocationPath(), "/", key);
             return GetAsync(finalKey);
         }
 
-        Task<bool> IFolderPerspective.AddAsync(string key, string value)
+        Task<bool> IManager.AddAsync(string key, string value)
         {
             var finalKey = string.Concat(GetLocationPath(), "/", key);
             return AddAsync(finalKey, value);
         }
 
-        Task<bool> IFolderPerspective.RemoveAsync(string key)
+        Task<bool> IManager.RemoveAsync(string key)
         {
             var finalKey = string.Concat(GetLocationPath(), "/", key);
             return RemoveAsync(finalKey);
+        }
+
+        async Task<IReadOnly> IReadOnly.GetFolderAsync(string name)
+        {
+            return await GetFolderAsync(name) as IReadOnly;
         }
     }
 }

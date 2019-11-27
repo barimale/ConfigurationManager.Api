@@ -1,3 +1,4 @@
+using ConfigurationManager.Api;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
@@ -13,10 +14,26 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
-        public void I_d_like_to_connect_to_consul_instance()
+        public void I_d_like_to_connect_to_consul_instance_as_read_write_manager()
         {
             //given 
-            var service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new global::ConfigurationManager.Api.Manager(
+                InputData.HostName,
+                InputData.Port,
+                InputData.ServiceHostName);
+
+            //when
+            var result = service.IsConnected();
+
+            //then
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void I_d_like_to_connect_to_consul_instance_as_read_only_client()
+        {
+            //given 
+            IReadOnly service = new global::ConfigurationManager.Api.Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -32,7 +49,7 @@ namespace UT.ConfigurationManager.Api
         public async Task I_d_like_to_add_dummy_key()
         {
             //given 
-            var service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new global::ConfigurationManager.Api.Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName,
@@ -56,7 +73,7 @@ namespace UT.ConfigurationManager.Api
             //given 
             var folderName = Guid.NewGuid().ToString();
 
-            var service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new global::ConfigurationManager.Api.Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -84,12 +101,38 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
+        public async Task I_d_like_to_add_unique_folder_to_existed_folder()
+        {
+            //given 
+            var folderName = Guid.NewGuid().ToString();
+
+            IManager service = new global::ConfigurationManager.Api.Manager(
+                InputData.HostName,
+                InputData.Port,
+                InputData.ServiceHostName);
+
+            var addedFolder = await service.AddFolderAsync(folderName);
+            var isGet = await service.GetFolderAsync(folderName);
+
+            //when
+            var newFolderName = Guid.NewGuid().ToString();
+            var isAdded = await isGet.AddFolderAsync(newFolderName);
+
+            //then
+            Assert.NotNull(isAdded);
+
+            //and then
+            var allFolderRemoved = await service.RemoveFolderAsync(addedFolder);
+            Assert.Null(allFolderRemoved);
+        }
+
+        [Test]
         public async Task I_d_like_to_add_key_to_the_specific_folder()
         {
             //given 
             var folderName = Guid.NewGuid().ToString();
 
-            var service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new global::ConfigurationManager.Api.Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -116,7 +159,7 @@ namespace UT.ConfigurationManager.Api
         public async Task I_d_like_to_remove_dummy_key()
         {
             //given 
-            var service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new global::ConfigurationManager.Api.Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);

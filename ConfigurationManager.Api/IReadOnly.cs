@@ -2,11 +2,11 @@
 
 namespace ConfigurationManager.Api
 {
-    public interface IFolderPerspective
+    public interface IReadOnly
     {
         Task<string> GetAsync(string key);
-        Task<bool> AddAsync(string key, string value);
-        Task<bool> RemoveAsync(string key);
+        Task<IReadOnly> GetFolderAsync(string name);
         string GetLocationPath();
+        bool IsConnected();
     }
 }

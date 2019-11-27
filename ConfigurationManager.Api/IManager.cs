@@ -2,13 +2,12 @@
 
 namespace ConfigurationManager.Api
 {
-    public interface IManager
+    public interface IManager : IReadOnly
     {
-        Task<IFolderPerspective> AddFolderAsync(string name);
-        Task<IFolderPerspective> GetFolderAsync(string name);
-        Task<string> GetAsync(string key);
+        Task<IManager> AddFolderAsync(string name);
+        Task<bool> RemoveFolderAsync(IManager service);
         Task<bool> AddAsync(string key, string value);
         Task<bool> RemoveAsync(string key);
-        bool IsConnected();
+        new Task<IManager> GetFolderAsync(string name);
     }
 }
