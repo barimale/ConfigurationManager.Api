@@ -38,7 +38,7 @@ namespace ConfigurationManager.Api
             MainFolder = mainFolder;
         }
 
-        public Manager(string hostname, int port, string serviceHostName, string mainFolder, Manager parent)
+        private Manager(string hostname, int port, string serviceHostName, string mainFolder, Manager parent)
             : this(hostname, port, serviceHostName, mainFolder)
         {
             Parent = parent;
