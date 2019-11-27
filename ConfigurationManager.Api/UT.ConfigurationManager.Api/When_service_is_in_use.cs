@@ -24,7 +24,7 @@ namespace UT.ConfigurationManager.Api
             //when
             var result = service.IsConnected();
 
-            //than
+            //then
             Assert.IsTrue(result);
         }
 
@@ -44,26 +44,10 @@ namespace UT.ConfigurationManager.Api
             var isAdded = await service.AddAsync("foo", "bar");
             var getValue = await service.GetAsync("foo");
 
-            //than
+            //then
             Assert.IsTrue(isConnected);
             Assert.IsTrue(isAdded);
             Assert.AreEqual(getValue, "bar");
-        }
-
-        public async Task I_d_like_to_add_dummy_key_to_main_folder()
-        {
-            //given 
-            var service = new global::ConfigurationManager.Api.Manager(
-                InputData.HostName,
-                InputData.Port,
-                InputData.ServiceHostName,
-                Guid.NewGuid().ToString());
-
-            //when
-            var isAdded = await service.AddAsync("foo", "bar", true);
-
-            //than
-            Assert.IsTrue(isAdded);
         }
 
         [Test]
@@ -80,14 +64,45 @@ namespace UT.ConfigurationManager.Api
             var isConnected = service.IsConnected();
 
             //when
-            var isAdded = await service.AddFolderAsync(folderName);
+            var addedFolder = await service.AddFolderAsync(folderName);
 
-            //than
+            //then
             Assert.IsTrue(isConnected);
-            Assert.IsTrue(isAdded);
+            Assert.NotNull(addedFolder);
 
-            //and than
-            await service.RemoveFolderAsync(folderName);
+            //and then
+            var isRemoved = await service.RemoveFolderAsync(addedFolder);
+            Assert.IsTrue(isRemoved);
+        }
+
+        [Test]
+        public async Task I_d_like_to_add_key_to_the_specific_folder()
+        {
+            //given 
+            var folderName = Guid.NewGuid().ToString();
+
+            var service = new global::ConfigurationManager.Api.Manager(
+                InputData.HostName,
+                InputData.Port,
+                InputData.ServiceHostName);
+
+            var isConnected = service.IsConnected();
+            var addedFolder = await service.AddFolderAsync(folderName);
+            var key = "foo";
+
+            //when
+            var isKeyAdded = await addedFolder.AddAsync(key, "bar");
+
+            //then
+            Assert.IsTrue(isKeyAdded);
+
+            //and then
+            var isRemoved = await addedFolder.RemoveAsync(key);
+            Assert.IsTrue(isRemoved);
+
+            //and then
+            var isFolderRemoved = await service.RemoveFolderAsync(addedFolder);
+            Assert.IsTrue(isFolderRemoved);
         }
 
         [Test]

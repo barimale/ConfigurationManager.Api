@@ -2,12 +2,11 @@
 
 namespace ConfigurationManager.Api
 {
-    public interface IManager
+    public interface IFolderPerspective
     {
-        Task<IFolderPerspective> AddFolderAsync(string key);
         Task<string> GetAsync(string key);
         Task<bool> AddAsync(string key, string value);
         Task<bool> RemoveAsync(string key);
-        bool IsConnected();
+        string GetLocationPath();
     }
 }

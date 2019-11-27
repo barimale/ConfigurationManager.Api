@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
 {
-    public class Manager : IManager
+    public class Manager : IManager, IFolderPerspective
     {
         private readonly string MainFolder;
         private readonly string HostName;
         private readonly int Port;
         private readonly string ServiceHostName;
+        private Manager Parent;
 
         private IConsulClient _client;
 
@@ -35,18 +36,18 @@ namespace ConfigurationManager.Api
             : this(hostname, port, serviceHostName)
         {
             MainFolder = mainFolder;
-            AddFolderAsync(MainFolder);
         }
 
-        public async Task<bool> AddAsync(string key, string value, bool toMainFolder = false)
+        public Manager(string hostname, int port, string serviceHostName, string mainFolder, Manager parent)
+            : this(hostname, port, serviceHostName, mainFolder)
+        {
+            Parent = parent;
+        }
+
+        public async Task<bool> AddAsync(string key, string value)
         {
             try
             {
-                if(toMainFolder)
-                {
-                    var a = await _client.KV.List(MainFolder);
-                }
-
                 var pair = new KVPair(key)
                 {
                     Value = Encoding.UTF8.GetBytes(value)
@@ -62,23 +63,23 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<bool> AddFolderAsync(string key)
+        public async Task<IFolderPerspective> AddFolderAsync(string folderName)
         {
             try
             {
-                if(!key.EndsWith("/"))
+                if(!folderName.EndsWith("/"))
                 {
-                    key = string.Concat(key, "/");
+                    folderName = string.Concat(folderName, "/");
                 }
 
-                var pair = new KVPair(key)
+                var pair = new KVPair(folderName)
                 {
                     Value = Encoding.UTF8.GetBytes(string.Empty)
                 };
 
                 var result = await _client.KV.Put(pair);
 
-                return result.Response;
+                return result.Response ? new Manager(HostName, Port, ServiceHostName, folderName, this) : throw new Exception();
             }
             catch (Exception)
             {
@@ -86,16 +87,13 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<bool> RemoveFolderAsync(string key)
+        public async Task<bool> RemoveFolderAsync(IFolderPerspective service)
         {
             try
             {
-                if (!key.EndsWith("/"))
-                {
-                    key = string.Concat(key, "/");
-                }
+                var path = service.GetLocationPath();
 
-                return await RemoveAsync(key);
+                return await RemoveAsync(path);
             }
             catch (Exception)
             {
@@ -136,14 +134,43 @@ namespace ConfigurationManager.Api
             }
         }
 
-        public async Task<bool> CleanInstanceAsync()
+        public string GetLocationPath()
         {
-            throw new NotImplementedException();
+            if (HasParent())
+            {
+                var subPath = Parent.GetLocationPath();
+                return subPath != null ? string.Concat(subPath, "/", MainFolder) : MainFolder;
+            }
+
+            return MainFolder;
         }
 
         public bool IsConnected()
         {
             return _client != null;
+        }
+
+        private bool HasParent()
+        {
+            return Parent != null;
+        }
+
+        Task<string> IFolderPerspective.GetAsync(string key)
+        {
+            var finalKey = string.Concat(GetLocationPath(), "/", key);
+            return GetAsync(key);
+        }
+
+        Task<bool> IFolderPerspective.AddAsync(string key, string value)
+        {
+            var finalKey = string.Concat(GetLocationPath(), "/", key);
+            return AddAsync(finalKey, value);
+        }
+
+        Task<bool> IFolderPerspective.RemoveAsync(string key)
+        {
+            var finalKey = string.Concat(GetLocationPath(), "/", key);
+            return RemoveAsync(finalKey);
         }
     }
 }
