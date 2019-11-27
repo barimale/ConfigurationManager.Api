@@ -1,0 +1,57 @@
+[
+	{
+		"key": "CONFIGURATOR_URL",
+		"flags": 0,
+		"value": "aHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMS8="
+	},
+	{
+		"key": "DLL_POOL",
+		"flags": 0,
+		"value": "aHR0cDovL2xvY2FsaG9zdDo5MjAw"
+	},
+	{
+		"key": "DataStoreObservator",
+		"flags": 0,
+		"value": "RGF0YSBTb3VyY2U9bG9jYWxob3N0XFNRTEVYUFJFU1M7SW5pdGlhbCBDYXRhbG9nPUN1c3RvbWl6YWJsZUJyb3dzZXIuRGF0YVN0b3JlO1VzZXIgSWQ9cmVhZE1vZGVsOyBQYXNzd29yZD1kdW1teTs="
+	},
+	{
+		"key": "IAM_CLIENT_ID",
+		"flags": 0,
+		"value": "c291bmRNYW5hZ2VyLVdQRg=="
+	},
+	{
+		"key": "IAM_REALM",
+		"flags": 0,
+		"value": "REVW"
+	},
+	{
+		"key": "IAM_URL",
+		"flags": 0,
+		"value": "aHR0cDovL2xvY2FsaG9zdDo4MDgwLw=="
+	},
+	{
+		"key": "KeepAliveIntervalInSeconds",
+		"flags": 0,
+		"value": "MzA="
+	},
+	{
+		"key": "ReconnectDelayInSeconds",
+		"flags": 0,
+		"value": "Mg=="
+	},
+	{
+		"key": "TEMPLATES_ENDPOINT",
+		"flags": 0,
+		"value": "YXBpL01vZHVsZXM="
+	},
+	{
+		"key": "WIDGETS_ENDPOINT",
+		"flags": 0,
+		"value": "YXBpL1dpZGdldHM="
+	},
+	{
+		"key": "loggingTimeout",
+		"flags": 0,
+		"value": "NDUwMDA="
+	}
+]
