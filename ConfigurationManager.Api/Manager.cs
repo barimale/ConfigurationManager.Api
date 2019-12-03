@@ -1,5 +1,6 @@
 ﻿using Consul;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -199,6 +200,11 @@ namespace ConfigurationManager.Api
         async Task<IReadOnly> IReadOnly.GetFolderAsync(string name)
         {
             return await GetFolderAsync(name) as IReadOnly;
+        }
+
+        public Task<Dictionary<string, string>> GetKeyValuePairsAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

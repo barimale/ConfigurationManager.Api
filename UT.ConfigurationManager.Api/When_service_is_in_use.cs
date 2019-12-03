@@ -17,7 +17,7 @@ namespace UT.ConfigurationManager.Api
         public void I_d_like_to_connect_to_consul_instance_as_read_write_manager()
         {
             //given 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -33,7 +33,7 @@ namespace UT.ConfigurationManager.Api
         public void I_d_like_to_connect_to_consul_instance_as_read_only_client()
         {
             //given 
-            IReadOnly service = new global::ConfigurationManager.Api.Manager(
+            IReadOnly service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -49,7 +49,7 @@ namespace UT.ConfigurationManager.Api
         public async Task I_d_like_to_add_dummy_key()
         {
             //given 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName,
@@ -73,7 +73,7 @@ namespace UT.ConfigurationManager.Api
             //given 
             var folderName = Guid.NewGuid().ToString();
 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -106,7 +106,7 @@ namespace UT.ConfigurationManager.Api
             //given 
             var folderName = Guid.NewGuid().ToString();
 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -132,7 +132,7 @@ namespace UT.ConfigurationManager.Api
             //given 
             var folderName = Guid.NewGuid().ToString();
 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
@@ -159,7 +159,7 @@ namespace UT.ConfigurationManager.Api
         public async Task I_d_like_to_remove_dummy_key()
         {
             //given 
-            IManager service = new global::ConfigurationManager.Api.Manager(
+            IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
