@@ -1,6 +1,7 @@
 using ConfigurationManager.Api;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace UT.ConfigurationManager.Api
@@ -68,6 +69,36 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
+        public async Task I_d_like_to_get_all_key_values_from_unique_folder()
+        {
+            //given 
+            var folderName = Guid.NewGuid().ToString();
+
+            IManager service = new Manager(
+                InputData.HostName,
+                InputData.Port,
+                InputData.ServiceHostName);
+
+            var addedFolder = await service.AddFolderAsync(folderName);
+            var firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
+            var secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
+            await addedFolder.AddAsync(firstPair.Key, firstPair.Value);
+            await addedFolder.AddAsync(secondPair.Key, secondPair.Value);
+
+            //when
+            var allOfThem = await addedFolder.AllKeyValuePairsAsync();
+
+            //then
+            Assert.AreEqual(allOfThem.Count, 2);
+            Assert.IsTrue(allOfThem.ContainsKey(firstPair.Key));
+            Assert.IsTrue(allOfThem.ContainsKey(secondPair.Key));
+            Assert.IsTrue(allOfThem.TryGetValue(firstPair.Key, out string firstResult));
+            Assert.AreEqual(firstResult, firstPair.Value);
+            Assert.IsTrue(allOfThem.TryGetValue(secondPair.Key, out string secondResult));
+            Assert.AreEqual(secondResult, secondPair.Value);
+        }
+
+        [Test]
         public async Task I_d_like_to_add_unique_folder()
         {
             //given 
@@ -123,7 +154,7 @@ namespace UT.ConfigurationManager.Api
 
             //and then
             var allFolderRemoved = await service.RemoveFolderAsync(addedFolder);
-            Assert.Null(allFolderRemoved);
+            Assert.IsTrue(allFolderRemoved);
         }
 
         [Test]

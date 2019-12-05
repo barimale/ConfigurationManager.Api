@@ -1,7 +1,9 @@
 ﻿using Consul;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
@@ -202,9 +204,30 @@ namespace ConfigurationManager.Api
             return await GetFolderAsync(name) as IReadOnly;
         }
 
-        public Task<Dictionary<string, string>> GetKeyValuePairsAsync()
+        public async Task<Dictionary<string, string>> AllKeyValuePairsAsync(CancellationToken token = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var finalPath = GetLocationPath();
+                var allOfThem = await _client.KV.Keys(finalPath, token);
+
+                var keyValues = new Dictionary<string, string>();
+                foreach (var key in allOfThem.Response.ToList())
+                {
+                    if (key.EndsWith("/"))
+                        continue;
+
+                    var result = await GetAsync(key);
+                    var index = key.LastIndexOf('/');
+                    keyValues.Add(key.Substring(index+1, key.Length - index -1), result);
+                }
+
+                return keyValues;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
