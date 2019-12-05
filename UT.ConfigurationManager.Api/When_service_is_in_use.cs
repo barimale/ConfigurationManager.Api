@@ -185,27 +185,5 @@ namespace UT.ConfigurationManager.Api
             var isFolderRemoved = await service.RemoveFolderAsync(addedFolder);
             Assert.IsTrue(isFolderRemoved);
         }
-
-        [Test]
-        public async Task I_d_like_to_remove_dummy_key()
-        {
-            //given 
-            IManager service = new Manager(
-                InputData.HostName,
-                InputData.Port,
-                InputData.ServiceHostName);
-
-            //when
-            var isAdded = await service.AddAsync("foo", "bar");
-            var getValue = await service.GetAsync("foo");
-            var isRemoved = await service.RemoveAsync("foo");
-            var tryGetRemoved = await service.GetAsync("foo");
-
-            //than
-            Assert.IsTrue(isAdded);
-            Assert.AreEqual(getValue, "bar");
-            Assert.IsTrue(isRemoved);
-            Assert.AreEqual(tryGetRemoved, "");
-        }
     }
 }
