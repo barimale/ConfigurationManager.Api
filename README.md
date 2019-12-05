@@ -1,7 +1,7 @@
 # ConfigurationManager.Api
 It is used for manage of consul instance based on the composite design pattern.
 
-## 1. Use it as a read-only client:
+## 1. Example of read-only client:
 ```
  IReadOnly service = new ConfigurationManager.Api.Manager(
                 InputData.HostName,
@@ -9,7 +9,7 @@ It is used for manage of consul instance based on the composite design pattern.
                 InputData.ServiceHostName);
 ```
 
-## 2. Use it as a read-write manager:
+## 2. Example of read-write manager:
 ```
 IManager service = new ConfigurationManager.Api.Manager(
                 InputData.HostName,
