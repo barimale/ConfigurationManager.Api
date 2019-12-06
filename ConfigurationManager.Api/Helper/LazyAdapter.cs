@@ -1,12 +1,8 @@
 ﻿namespace ConfigurationManager.Api.Helper
 {
-    public class Adapter
+    public class LazyAdapter : BaseAdapter
     {
-        private readonly IReadOnly _manager;
-        private const string AppSettingsName = "AppSettings";
-        private const string ConnectionStringsName = "ConnectionStrings";
-
-        public Adapter(IReadOnly manager)
+        public LazyAdapter(IReadOnly manager)
         {
             _manager = manager;
         }
@@ -18,7 +14,7 @@
             return folder.GetAsync(key).Result;
         }
 
-        public string ConnectionString(string key)
+        public string ConnectionStrings(string key)
         {
             var folder = _manager.GetFolderAsync(ConnectionStringsName).Result;
 
