@@ -1,6 +1,6 @@
-﻿namespace ConfigurationManager.Api.Helper
+﻿namespace ConfigurationManager.Api.Helper.Adapters
 {
-    public class LazyAdapter : BaseAdapter
+    public class LazyAdapter : BaseAdapter, IAdapter
     {
         public LazyAdapter(IReadOnly manager)
         {

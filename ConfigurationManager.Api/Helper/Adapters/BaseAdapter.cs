@@ -1,4 +1,4 @@
-﻿namespace ConfigurationManager.Api.Helper
+﻿namespace ConfigurationManager.Api.Helper.Adapters
 {
     public abstract class BaseAdapter
     {
