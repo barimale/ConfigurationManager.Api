@@ -6,7 +6,7 @@
 				<authors>barimale</authors>
 				<owners>barimale</owners>
 				<requireLicenseAcceptance>false</requireLicenseAcceptance>
-				<description>Consul as a configuration source</description>
+				<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
 				<dependencies>
 					<group>
 						<dependency id="Flurl.Http" version="2.4.2" />
