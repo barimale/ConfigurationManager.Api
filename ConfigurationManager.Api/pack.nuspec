@@ -9,6 +9,8 @@
 				<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
 				<dependencies>
 					<group>
+            <dependency id="Ninject.Extensions.Factory" version="3.3.2" />
+            <dependency id="Consul" version="0.7.2.6" />
 						<dependency id="Flurl.Http" version="2.4.2" />
 						<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" />
 					</group>
