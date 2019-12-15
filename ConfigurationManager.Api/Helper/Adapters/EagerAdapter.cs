@@ -5,8 +5,8 @@ namespace ConfigurationManager.Api.Helper.Adapters
 {
     public class EagerAdapter : BaseAdapter, IAdapter
     {
-        private NameValueCollection InnerAppSettings;
-        private NameValueCollection InnerConnectionStrings;
+        public NameValueCollection InnerAppSettings { private set; get; }
+        public NameValueCollection InnerConnectionStrings { private set; get; }
 
         public EagerAdapter(IReadOnly manager)
         {

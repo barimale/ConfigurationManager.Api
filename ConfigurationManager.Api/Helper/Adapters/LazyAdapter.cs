@@ -1,7 +1,12 @@
-﻿namespace ConfigurationManager.Api.Helper.Adapters
+﻿using System.Collections.Specialized;
+
+namespace ConfigurationManager.Api.Helper.Adapters
 {
     public class LazyAdapter : BaseAdapter, IAdapter
     {
+        public NameValueCollection InnerConnectionStrings => throw new System.NotSupportedException();
+        public NameValueCollection InnerAppSettings => throw new System.NotSupportedException();
+
         public LazyAdapter(IReadOnly manager)
         {
             _manager = manager;
