@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Configuration;
 using System.Linq;
 
 namespace ConfigurationManager.Api.Helper.Adapters
@@ -6,7 +7,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
     public class EagerAdapter : BaseAdapter, IAdapter
     {
         public NameValueCollection InnerAppSettings { private set; get; }
-        public NameValueCollection InnerConnectionStrings { private set; get; }
+        public ConnectionStringSettingsCollection InnerConnectionStrings { private set; get; }
 
         public EagerAdapter(IReadOnly manager)
         {
@@ -23,7 +24,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
         public string ConnectionStrings(string key)
         {
-            return InnerConnectionStrings[key];
+            return InnerConnectionStrings[key].ConnectionString;
         }
 
         private NameValueCollection LoadAppSettings()
@@ -40,16 +41,22 @@ namespace ConfigurationManager.Api.Helper.Adapters
                     });
         }
 
-        private NameValueCollection LoadConnectionStrings()
+        private ConnectionStringSettingsCollection LoadConnectionStrings()
         {
             var folder = _manager.GetFolderAsync(ConnectionStringsName).Result;
 
             return folder.AllKeyValuePairsAsync()
                 .Result
-                .Aggregate(new NameValueCollection(),
+                .Aggregate(new ConnectionStringSettingsCollection(),
                     (seed, current) =>
                     {
-                        seed.Add(current.Key, current.Value);
+                        var setting = new ConnectionStringSettings
+                        {
+                            ConnectionString = current.Value,
+                            Name = current.Key
+                        };
+
+                        seed.Add(setting);
                         return seed;
                     });
         }
