@@ -6,7 +6,7 @@
 				<authors>barimale</authors>
 				<owners>barimale</owners>
 				<requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
+				<projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
 				<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
 			<dependencies>
 				<dependency id="Ninject.Extensions.Factory" version="3.3.2" />
@@ -35,7 +35,7 @@
 		</metadata>
 	<files>
 		<file src="bin\Release\netcoreapp3.0\ConfigurationManager.Api.dll" target="lib\netcoreapp3.0" />
-		<file src="bin\Release\netcoreapp3.0\ConfigurationManager.Api.dll" target="lib\netstandard2.1" />
-		<file src="bin\Release\netcoreapp3.0\ConfigurationManager.Api.dll" target="lib\net47" />
+		<file src="bin\Release\netstandard2.1\ConfigurationManager.Api.dll" target="lib\netstandard2.1" />
+		<file src="bin\Release\net47\ConfigurationManager.Api.dll" target="lib\net47" />
 	</files>
 </package>
