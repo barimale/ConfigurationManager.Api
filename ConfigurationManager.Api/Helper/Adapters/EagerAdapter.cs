@@ -39,7 +39,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
         {
             try
             {
-                var folder = _manager.GetFolderAsync(AppSettingsName).Result;
+                var folder = _manager.GetFolderAsync(AppSettingsName, token).Result;
 
                 return folder.AllKeyValuePairsAsync(token)
                     .Result
@@ -60,7 +60,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
         {
             try
             {
-                var folder = _manager.GetFolderAsync(ConnectionStringsName).Result;
+                var folder = _manager.GetFolderAsync(ConnectionStringsName, token).Result;
 
                 return folder.AllKeyValuePairsAsync(token)
                     .Result
