@@ -21,7 +21,7 @@
 					<dependency id="Ninject.Extensions.Factory" version="3.3.2" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
 				</group>
-				<group targetFramework="net47">
+				<group targetFramework=".NETFramework4.7">
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
 					<dependency id="Ninject.Extensions.Factory" version="3.3.2" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
