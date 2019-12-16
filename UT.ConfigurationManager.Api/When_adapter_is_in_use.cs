@@ -13,38 +13,41 @@ namespace UT.ConfigurationManager.Api
     public class When_adapter_is_in_use
     {
         private readonly StandardKernel _kernel;
-
-        private string appFolder = Guid.NewGuid().ToString();
+        private IManager service;
+        private IManager addedFolder;
+        private string appFolder = Guid.NewGuid().ToString().ToUpper();
         private KeyValuePair<string, string> firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
         private KeyValuePair<string, string> secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
 
         public When_adapter_is_in_use()
         {
-            _kernel = new StandardKernel(new Bindings());
+            if(_kernel == null)
+                _kernel = new StandardKernel(new Bindings());
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void CleanUp()
         {
+            service.RemoveFolderAsync(addedFolder);
             _kernel.Dispose();
         }
 
         [OneTimeSetUp]
         public async Task Setup()
         {
-            IManager service = new Manager(
+            service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName);
 
-            var addedFolder = await service.AddFolderAsync(appFolder);
-            var appSettingsFolder = await addedFolder.AddFolderAsync(EagerAdapter.AppSettingsName);
-            await appSettingsFolder.AddAsync(firstPair.Key, firstPair.Value);
-            await appSettingsFolder.AddAsync(secondPair.Key, secondPair.Value);
+            addedFolder = await service.AddFolderAsync(appFolder).ConfigureAwait(false);
+            var appSettingsFolder = await addedFolder.AddFolderAsync(EagerAdapter.AppSettingsName).ConfigureAwait(false);
+            await appSettingsFolder.AddAsync(firstPair.Key, firstPair.Value).ConfigureAwait(false);
+            await appSettingsFolder.AddAsync(secondPair.Key, secondPair.Value).ConfigureAwait(false);
 
-            var connectionStringFolder = await addedFolder.AddFolderAsync(EagerAdapter.ConnectionStringsName);
-            await connectionStringFolder.AddAsync(firstPair.Key, firstPair.Value);
-            await connectionStringFolder.AddAsync(secondPair.Key, secondPair.Value);
+            var connectionStringFolder = await addedFolder.AddFolderAsync(EagerAdapter.ConnectionStringsName).ConfigureAwait(false);
+            await connectionStringFolder.AddAsync(firstPair.Key, firstPair.Value).ConfigureAwait(false);
+            await connectionStringFolder.AddAsync(secondPair.Key, secondPair.Value).ConfigureAwait(false);
         }
 
         [Test]
@@ -54,7 +57,8 @@ namespace UT.ConfigurationManager.Api
             IReadOnly readOnlyService = new Manager(
                 InputData.HostName, 
                 InputData.Port, 
-                InputData.ServiceHostName);
+                InputData.ServiceHostName,
+                appFolder);
 
             var factory = _kernel.Get<IAdapterFactory>();
             var lazyAdapter = factory.GetAdapter<LazyAdapter>(readOnlyService);
@@ -75,10 +79,10 @@ namespace UT.ConfigurationManager.Api
             IReadOnly readOnlyService = new Manager(
                InputData.HostName,
                InputData.Port,
-               InputData.ServiceHostName);
+               InputData.ServiceHostName,
+               appFolder);
 
-            var factory = _kernel.Get<IAdapterFactory>();
-            var lazyAdapter = factory.GetAdapter<LazyAdapter>(readOnlyService);
+            var lazyAdapter = new LazyAdapter(readOnlyService);
 
             //when
             var appSettingsValueOfTheKey = lazyAdapter.ConnectionStrings(firstPair.Key);
@@ -96,10 +100,10 @@ namespace UT.ConfigurationManager.Api
             IReadOnly readOnlyService = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName,
+                appFolder);
 
-            var factory = _kernel.Get<IAdapterFactory>();
-            var eagerAdapter = factory.GetAdapter<EagerAdapter>(readOnlyService);
+            var eagerAdapter = new EagerAdapter(readOnlyService);
 
             //when
             var appSettingsValueOfTheKey = eagerAdapter.AppSettings(firstPair.Key);
@@ -117,10 +121,10 @@ namespace UT.ConfigurationManager.Api
             IReadOnly readOnlyService = new Manager(
                InputData.HostName,
                InputData.Port,
-               InputData.ServiceHostName);
+               InputData.ServiceHostName,
+               appFolder);
 
-            var factory = _kernel.Get<IAdapterFactory>();
-            var eagerAdapter = factory.GetAdapter<EagerAdapter>(readOnlyService);
+            var eagerAdapter = new EagerAdapter(readOnlyService);
 
             //when
             var appSettingsValueOfTheKey = eagerAdapter.ConnectionStrings(firstPair.Key);

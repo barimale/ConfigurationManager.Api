@@ -10,7 +10,7 @@ namespace ConfigurationManager.Api
 {
     public class Manager : IManager, IReadOnly
     {
-        private readonly string MainFolder;
+        private readonly string MainFolder = string.Empty;
         private readonly string HostName;
         private readonly int Port;
         private readonly string ServiceHostName;
@@ -39,6 +39,10 @@ namespace ConfigurationManager.Api
             : this(hostname, port, serviceHostName)
         {
             MainFolder = mainFolder;
+            if(!MainFolder.EndsWith("/"))
+            {
+                MainFolder += "/";
+            }
         }
 
         private Manager(string hostname, int port, string serviceHostName, string mainFolder, Manager parent)
@@ -70,10 +74,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                if(!name.EndsWith("/"))
-                {
-                    name = string.Concat(name, "/");
-                }
+                name = GetAbsolutName(name);
 
                 var pair = new KVPair(name)
                 {
@@ -84,20 +85,34 @@ namespace ConfigurationManager.Api
 
                 return result.Response ? new Manager(HostName, Port, ServiceHostName, name, this) : throw new Exception();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
+        }
+
+        private string GetAbsolutName(string name)
+        {
+            name = string.Concat(this.GetLocationPath(), name);
+
+            if (!name.EndsWith("/"))
+            {
+                name = string.Concat(name, "/");
+            }
+
+            if (name.StartsWith("/"))
+            {
+                name = name.TrimStart('/');
+            }
+
+            return name;
         }
 
         public async Task<IManager> GetFolderAsync(string name)
         {
             try
             {
-                if (!name.EndsWith("/"))
-                {
-                    name = string.Concat(name, "/");
-                }
+                name = GetAbsolutName(name);
 
                 var alreadyExist = await _client.KV.Get(name);
                 if (alreadyExist == null || alreadyExist.StatusCode != System.Net.HttpStatusCode.OK)
@@ -135,9 +150,9 @@ namespace ConfigurationManager.Api
 
                 return result.Response;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -154,9 +169,9 @@ namespace ConfigurationManager.Api
 
                 return string.Empty;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -165,7 +180,7 @@ namespace ConfigurationManager.Api
             if (HasParent())
             {
                 var subPath = Parent.GetLocationPath();
-                return subPath != null ? string.Concat(subPath, "/", MainFolder) : MainFolder;
+                return !string.IsNullOrEmpty(subPath) ? MainFolder : MainFolder;
             }
 
             return MainFolder;
