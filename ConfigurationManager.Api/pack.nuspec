@@ -6,7 +6,7 @@
 				<authors>barimale</authors>
 				<owners>barimale</owners>
 				<requireLicenseAcceptance>false</requireLicenseAcceptance>
-				<repositoryUrl></repositoryUrl>
+        <projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
 				<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
 			<dependencies>
 				<dependency id="Ninject.Extensions.Factory" version="3.3.2" />
