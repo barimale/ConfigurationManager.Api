@@ -7,7 +7,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
 {
     public class EagerAdapter : BaseAdapter, IAdapter
     {
-        private CancellationTokenSource tokenSource = new CancellationTokenSource(5000);
+        private CancellationTokenSource tokenSource = new CancellationTokenSource(10000);
         public NameValueCollection InnerAppSettings { private set; get; }
         public ConnectionStringSettingsCollection InnerConnectionStrings { private set; get; }
 
@@ -17,6 +17,12 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
             InnerAppSettings = LoadAppSettings(tokenSource.Token);
             InnerConnectionStrings = LoadConnectionStrings(tokenSource.Token);
+        }
+
+        public EagerAdapter(IReadOnly manager, int cancellationTimeInMilliseconds)
+            : this(manager)
+        {
+            tokenSource = new CancellationTokenSource(cancellationTimeInMilliseconds);
         }
 
         public string AppSettings(string key)
@@ -35,7 +41,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
             {
                 var folder = _manager.GetFolderAsync(AppSettingsName).Result;
 
-                return folder.AllKeyValuePairsAsync()
+                return folder.AllKeyValuePairsAsync(token)
                     .Result
                     .Aggregate(new NameValueCollection(),
                         (seed, current) =>
@@ -56,7 +62,7 @@ namespace ConfigurationManager.Api.Helper.Adapters
             {
                 var folder = _manager.GetFolderAsync(ConnectionStringsName).Result;
 
-                return folder.AllKeyValuePairsAsync()
+                return folder.AllKeyValuePairsAsync(token)
                     .Result
                     .Aggregate(new ConnectionStringSettingsCollection(),
                         (seed, current) =>

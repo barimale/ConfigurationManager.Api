@@ -8,7 +8,7 @@ namespace ConfigurationManager.Api
     {
         Task<Dictionary<string, string>> AllKeyValuePairsAsync(CancellationToken token = default);
         Task<string> GetAsync(string key);
-        Task<IReadOnly> GetFolderAsync(string name);
+        Task<IReadOnly> GetFolderAsync(string name, CancellationToken token = default);
         string GetLocationPath();
         bool IsConnected();
     }

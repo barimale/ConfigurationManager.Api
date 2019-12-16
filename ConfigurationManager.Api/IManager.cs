@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConfigurationManager.Api
 {
@@ -8,6 +9,6 @@ namespace ConfigurationManager.Api
         Task<bool> RemoveFolderAsync(IManager service);
         Task<bool> AddAsync(string key, string value);
         Task<bool> RemoveAsync(string key);
-        new Task<IManager> GetFolderAsync(string name);
+        new Task<IManager> GetFolderAsync(string name, CancellationToken token = default);
     }
 }

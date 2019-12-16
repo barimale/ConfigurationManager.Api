@@ -108,13 +108,13 @@ namespace ConfigurationManager.Api
             return name;
         }
 
-        public async Task<IManager> GetFolderAsync(string name)
+        public async Task<IManager> GetFolderAsync(string name, CancellationToken token)
         {
             try
             {
                 name = GetAbsolutName(name);
 
-                var alreadyExist = await _client.KV.Get(name);
+                var alreadyExist = await _client.KV.Get(name, token);
                 if (alreadyExist == null || alreadyExist.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     return null;
@@ -214,9 +214,9 @@ namespace ConfigurationManager.Api
             return RemoveAsync(finalKey);
         }
 
-        async Task<IReadOnly> IReadOnly.GetFolderAsync(string name)
+        async Task<IReadOnly> IReadOnly.GetFolderAsync(string name, CancellationToken token)
         {
-            return await GetFolderAsync(name) as IReadOnly;
+            return await GetFolderAsync(name, token) as IReadOnly;
         }
 
         public async Task<Dictionary<string, string>> AllKeyValuePairsAsync(CancellationToken token = default)
