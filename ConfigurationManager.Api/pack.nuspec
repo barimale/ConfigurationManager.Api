@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 		<metadata>
-				<id>ConfigurationManager.Api</id>
-				<version>1.3.3.2</version>
-				<authors>barimale</authors>
-				<owners>barimale</owners>
-				<requireLicenseAcceptance>false</requireLicenseAcceptance>
-				<projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
-				<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
-			<dependencies>
-				<dependency id="Ninject.Extensions.Factory" version="3.3.2" />
-				<dependency id="Consul" version="0.7.2.6" />
-				<dependency id="Flurl.Http" version="2.4.2" />
-				<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" />
-			</dependencies>
+			<id>ConfigurationManager.Api</id>
+			<version>1.3.3.2</version>
+			<authors>barimale</authors>
+			<owners>barimale</owners>
+			<requireLicenseAcceptance>false</requireLicenseAcceptance>
+			<projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
+			<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
 			<tags>Consul</tags>
 			<dependencies>
 				<group targetFramework=".NETCoreApp3.0">
