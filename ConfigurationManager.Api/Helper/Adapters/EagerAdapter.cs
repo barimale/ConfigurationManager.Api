@@ -7,22 +7,53 @@ namespace ConfigurationManager.Api.Helper.Adapters
 {
     public class EagerAdapter : BaseAdapter, IAdapter
     {
-        private CancellationTokenSource tokenSource = new CancellationTokenSource(10000);
-        public NameValueCollection InnerAppSettings { private set; get; }
-        public ConnectionStringSettingsCollection InnerConnectionStrings { private set; get; }
+        private CancellationTokenSource tokenSource = new CancellationTokenSource(30000);
+        private NameValueCollection innerAppSettings;
+        private ConnectionStringSettingsCollection innerConnectionStrings;
 
         public EagerAdapter(IReadOnly manager)
         {
             _manager = manager;
-
-            InnerAppSettings = LoadAppSettings(tokenSource.Token);
-            InnerConnectionStrings = LoadConnectionStrings(tokenSource.Token);
         }
 
         public EagerAdapter(IReadOnly manager, int cancellationTimeInMilliseconds)
-            : this(manager)
+        : this(manager)
         {
             tokenSource = new CancellationTokenSource(cancellationTimeInMilliseconds);
+        }
+
+        public ConnectionStringSettingsCollection InnerConnectionStrings
+        {
+            get
+            {
+                if (innerConnectionStrings == null)
+                {
+                    innerConnectionStrings = LoadConnectionStrings(tokenSource.Token);
+                }
+
+                return innerConnectionStrings;
+            }
+            private set
+            {
+                innerConnectionStrings = value;
+            }
+        }
+
+        public NameValueCollection InnerAppSettings
+        {
+            get
+            {
+                if (innerAppSettings == null)
+                {
+                    innerAppSettings = LoadAppSettings(tokenSource.Token);
+                }
+
+                return innerAppSettings;
+            }
+            private set
+            {
+                innerAppSettings = value;
+            }
         }
 
         public string AppSettings(string key)

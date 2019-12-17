@@ -122,9 +122,9 @@ namespace ConfigurationManager.Api
 
                 return new Manager(HostName, Port, ServiceHostName, name, this);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -136,9 +136,9 @@ namespace ConfigurationManager.Api
 
                 return await RemoveAsync(path);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
