@@ -1,7 +1,5 @@
 using ConfigurationManager.Api;
-using ConfigurationManager.Api.Bindings;
 using ConfigurationManager.Api.Helper.Adapters;
-using Ninject;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,24 +9,16 @@ namespace UT.ConfigurationManager.Api
 {
     public class When_adapter_is_in_use
     {
-        private readonly StandardKernel _kernel;
         private IManager service;
         private IManager addedFolder;
         private string appFolder = Guid.NewGuid().ToString().ToUpper();
         private KeyValuePair<string, string> firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
         private KeyValuePair<string, string> secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
 
-        public When_adapter_is_in_use()
-        {
-            if(_kernel == null)
-                _kernel = new StandardKernel(new Bindings());
-        }
-
         [OneTimeTearDown]
         public void CleanUp()
         {
             service.RemoveFolderAsync(addedFolder);
-            _kernel.Dispose();
         }
 
         [OneTimeSetUp]
