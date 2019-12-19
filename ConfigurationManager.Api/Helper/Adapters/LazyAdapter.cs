@@ -26,5 +26,10 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
             return folder.GetAsync(key).Result;
         }
+
+        public bool Initialize()
+        {
+            return true;
+        }
     }
 }

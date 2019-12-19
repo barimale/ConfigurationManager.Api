@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UT.ConfigurationManager.Api
 {
-    public class When_service_is_in_use
+    public class When_manager_is_in_use
     {
         [SetUp]
         public void Setup()

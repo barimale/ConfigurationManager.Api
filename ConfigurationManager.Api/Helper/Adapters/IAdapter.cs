@@ -8,5 +8,6 @@ namespace ConfigurationManager.Api.Helper.Adapters
         NameValueCollection InnerAppSettings { get; }
         string AppSettings(string key);
         string ConnectionStrings(string key);
+        bool Initialize();
     }
 }

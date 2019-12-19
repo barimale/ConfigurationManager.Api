@@ -33,10 +33,6 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
                 return innerConnectionStrings;
             }
-            private set
-            {
-                innerConnectionStrings = value;
-            }
         }
 
         public NameValueCollection InnerAppSettings
@@ -50,10 +46,6 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
                 return innerAppSettings;
             }
-            private set
-            {
-                innerAppSettings = value;
-            }
         }
 
         public string AppSettings(string key)
@@ -64,6 +56,21 @@ namespace ConfigurationManager.Api.Helper.Adapters
         public string ConnectionStrings(string key)
         {
             return InnerConnectionStrings[key].ConnectionString;
+        }
+
+        public bool Initialize()
+        {
+            try
+            {
+                innerConnectionStrings = LoadConnectionStrings(tokenSource.Token);
+                innerAppSettings = LoadAppSettings(tokenSource.Token);
+
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private NameValueCollection LoadAppSettings(CancellationToken token)

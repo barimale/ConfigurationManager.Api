@@ -15,24 +15,34 @@ namespace ConfigurationManager.Api
         private readonly int Port;
         private readonly string ServiceHostName;
         private Manager Parent;
+        private IConsulClient client;
 
-        private IConsulClient _client;
+        private IConsulClient Client
+        {
+            get
+            {
+                if(client == null)
+                {
+                    client = new ConsulClient(consulConfig =>
+                    {
+                        var address = string.Concat(HostName, ":", Port);
+                        consulConfig.Address = new Uri(address);
+                    }, null, handlerOverride =>
+                    {
+                        handlerOverride.Proxy = null;
+                        handlerOverride.UseProxy = false;
+                    });
+                }
+
+                return client;
+            }
+        }
 
         public Manager(string hostname, int port, string serviceHostName = "")
         {
             HostName = hostname;
             Port = port;
             ServiceHostName = serviceHostName;
-
-            _client = new ConsulClient(consulConfig =>
-            {
-                var address = string.Concat(HostName, ":", Port);
-                consulConfig.Address = new Uri(address);
-            }, null, handlerOverride =>
-            {
-                handlerOverride.Proxy = null;
-                handlerOverride.UseProxy = false;
-            });
         }
 
         public Manager(string hostname, int port, string serviceHostName, string mainFolder)
@@ -60,7 +70,7 @@ namespace ConfigurationManager.Api
                     Value = Encoding.UTF8.GetBytes(value)
                 };
                 
-                var result = await _client.KV.Put(pair);
+                var result = await Client.KV.Put(pair);
 
                 return result.Response;
             }
@@ -81,7 +91,7 @@ namespace ConfigurationManager.Api
                     Value = Encoding.UTF8.GetBytes(string.Empty)
                 };
 
-                var result = await _client.KV.Put(pair);
+                var result = await Client.KV.Put(pair);
 
                 return result.Response ? new Manager(HostName, Port, ServiceHostName, name, this) : throw new Exception();
             }
@@ -114,7 +124,7 @@ namespace ConfigurationManager.Api
             {
                 name = GetAbsolutName(name);
 
-                var alreadyExist = await _client.KV.Get(name, token);
+                var alreadyExist = await Client.KV.Get(name, token);
                 if (alreadyExist == null || alreadyExist.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     return null;
@@ -146,7 +156,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                var result = await _client.KV.Delete(key);
+                var result = await Client.KV.Delete(key);
 
                 return result.Response;
             }
@@ -160,7 +170,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                var res = await _client.KV.Get(key);
+                var res = await Client.KV.Get(key);
 
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 { 
@@ -188,7 +198,7 @@ namespace ConfigurationManager.Api
 
         public bool IsConnected()
         {
-            return _client != null;
+            return Client.Status.Leader().Result != string.Empty;
         }
 
         private bool HasParent()
@@ -224,7 +234,7 @@ namespace ConfigurationManager.Api
             try
             {
                 var finalPath = GetLocationPath();
-                var allOfThem = await _client.KV.Keys(finalPath, token);
+                var allOfThem = await Client.KV.Keys(finalPath, token);
 
                 var keyValues = new Dictionary<string, string>();
                 foreach (var key in allOfThem.Response.ToList())
