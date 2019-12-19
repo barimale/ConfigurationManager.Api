@@ -198,7 +198,14 @@ namespace ConfigurationManager.Api
 
         public bool IsConnected()
         {
-            return Client.Status.Leader().Result != string.Empty;
+            try
+            {
+                return Client.Status.Leader().Result != string.Empty;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private bool HasParent()
