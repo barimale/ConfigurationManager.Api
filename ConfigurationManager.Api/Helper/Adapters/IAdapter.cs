@@ -9,5 +9,6 @@ namespace ConfigurationManager.Api.Helper.Adapters
         string AppSettings(string key);
         string ConnectionStrings(string key);
         bool Initialize();
+        bool IsConnected();
     }
 }

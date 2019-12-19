@@ -31,5 +31,10 @@ namespace ConfigurationManager.Api.Helper.Adapters
         {
             return true;
         }
+
+        public bool IsConnected()
+        {
+            return _manager.IsConnected();
+        }
     }
 }

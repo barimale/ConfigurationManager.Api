@@ -73,6 +73,11 @@ namespace ConfigurationManager.Api.Helper.Adapters
             }
         }
 
+        public bool IsConnected()
+        {
+            return _manager.IsConnected();
+        }
+
         private NameValueCollection LoadAppSettings(CancellationToken token)
         {
             try
