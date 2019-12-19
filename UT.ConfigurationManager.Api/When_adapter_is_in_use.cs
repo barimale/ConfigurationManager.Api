@@ -1,6 +1,5 @@
 using ConfigurationManager.Api;
 using ConfigurationManager.Api.Bindings;
-using ConfigurationManager.Api.Helper;
 using ConfigurationManager.Api.Helper.Adapters;
 using Ninject;
 using NUnit.Framework;
@@ -60,8 +59,7 @@ namespace UT.ConfigurationManager.Api
                 InputData.ServiceHostName,
                 appFolder);
 
-            var factory = _kernel.Get<IAdapterFactory>();
-            var lazyAdapter = factory.GetAdapter<LazyAdapter>(readOnlyService);
+            var lazyAdapter = new LazyAdapter(readOnlyService);
 
             //when
             var appSettingsValueOfTheKey = lazyAdapter.AppSettings(firstPair.Key);

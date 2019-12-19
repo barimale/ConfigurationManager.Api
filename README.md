@@ -27,8 +27,7 @@ IReadOnly manager = new Manager(
 	InputData.Port, 
 	InputData.ServiceHostName);
 
-var factory = _kernel.Get<IAdapterFactory>();
-var lazyAdapter = factory.GetAdapter<LazyAdapter>(manager);
+var lazyAdapter = new LazyAdapter(manager);
 
 var @VALUE = lazyAdapter.AppSettings("KEY");
 ```
@@ -39,8 +38,7 @@ IReadOnly manager = new Manager(
 	InputData.Port, 
 	InputData.ServiceHostName);
 
-var factory = _kernel.Get<IAdapterFactory>();
-var eagerAdapter = factory.GetAdapter<EagerAdapter>(manager);
+var eagerAdapter = new EagerAdapter(manager);
 
 var @VALUE = eagerAdapter.AppSettings("KEY");
 ```

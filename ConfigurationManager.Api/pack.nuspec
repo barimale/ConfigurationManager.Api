@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 		<metadata>
 			<id>ConfigurationManager.Api</id>
-			<version>1.3.7.4</version>
+			<version>1.3.7.5</version>
 			<authors>barimale</authors>
 			<owners>barimale</owners>
 			<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,17 +12,14 @@
 			<dependencies>
 				<group targetFramework=".NETCoreApp3.0">
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
-					<dependency id="Ninject.Extensions.Factory" version="3.3.2" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
 				</group>
 				<group targetFramework=".NETFramework4.7">
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
-					<dependency id="Ninject.Extensions.Factory" version="3.3.2" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
 				</group>
 				<group targetFramework=".NETStandard2.1">
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
-					<dependency id="Ninject.Extensions.Factory" version="3.3.2" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
 				</group>
 			</dependencies>
