@@ -16,3 +16,4 @@ obj
 /ConfigurationManager.Api/bin/Release
 /UT.ConfigurationManager.Api/bin/Release/netcoreapp3.0
 /ConfigurationManager.Api/bin/Debug
+/ConfigurationManager.Api/ConfigurationManager.Api.csproj.user

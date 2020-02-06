@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 		<metadata>
 			<id>ConfigurationManager.Api</id>
-			<version>1.3.7.8</version>
+			<version>1.3.7.9</version>
 			<authors>barimale</authors>
 			<owners>barimale</owners>
 			<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -18,6 +18,10 @@
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
 				</group>
+				<group targetFramework=".NETStandard2.0">
+					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+				</group>
 				<group targetFramework=".NETStandard2.1">
 					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
 					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
@@ -26,6 +30,7 @@
 		</metadata>
 	<files>
 		<file src="bin\Release\netcoreapp3.0\ConfigurationManager.Api.dll" target="lib\netcoreapp3.0" />
+		<file src="bin\Release\netstandard2.0\ConfigurationManager.Api.dll" target="lib\netstandard2.0" />
 		<file src="bin\Release\netstandard2.1\ConfigurationManager.Api.dll" target="lib\netstandard2.1" />
 		<file src="bin\Release\net47\ConfigurationManager.Api.dll" target="lib\net47" />
 	</files>

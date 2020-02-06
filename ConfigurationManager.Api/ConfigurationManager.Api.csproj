@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netstandard2.1;net47</TargetFrameworks>
-    <AssemblyVersion>1.3.7.8</AssemblyVersion>
-    <FileVersion>1.3.7.8</FileVersion>
+    <TargetFrameworks>netcoreapp3.0;netstandard2.1;netstandard2.0;net47</TargetFrameworks>
+    <AssemblyVersion>1.3.7.9</AssemblyVersion>
+    <FileVersion>1.3.7.9</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.3.5.0</Version>
+    <Version>1.3.7.9</Version>
     <Authors>barimale</Authors>
     <Description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</Description>
     <RepositoryUrl>https://github.com/barimale/ConfigurationManager.Api</RepositoryUrl>
