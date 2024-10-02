@@ -56,8 +56,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = lazyAdapter.AppSettings(secondPair.Key);
 
             //then
-            Assert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
+            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
+            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -77,8 +77,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = lazyAdapter.ConnectionStrings(secondPair.Key);
 
             //then
-            Assert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
+            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
+            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -98,8 +98,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = eagerAdapter.AppSettings(secondPair.Key);
 
             //then
-            Assert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
+            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
+            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -119,8 +119,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = eagerAdapter.ConnectionStrings(secondPair.Key);
 
             //then
-            Assert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
+            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
+            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
     }
 }

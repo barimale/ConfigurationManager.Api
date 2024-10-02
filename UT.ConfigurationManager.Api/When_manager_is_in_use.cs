@@ -1,5 +1,6 @@
 using ConfigurationManager.Api;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace UT.ConfigurationManager.Api
             var result = service.IsConnected();
 
             //then
-            Assert.IsTrue(result);
+            Assert.Equals(true, result);
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace UT.ConfigurationManager.Api
             var result = service.IsConnected();
 
             //then
-            Assert.IsTrue(result);
+            Assert.Equals(true, result);
         }
 
         [Test]
@@ -63,9 +64,9 @@ namespace UT.ConfigurationManager.Api
             var getValue = await service.GetAsync("foo");
 
             //then
-            Assert.IsTrue(isConnected);
-            Assert.IsTrue(isAdded);
-            Assert.AreEqual(getValue, "bar");
+            Assert.Equals(true, isConnected);
+            Assert.Equals(true, isAdded);
+            Assert.Equals(getValue, "bar");
         }
 
         [Test]
@@ -89,13 +90,13 @@ namespace UT.ConfigurationManager.Api
             var allOfThem = await addedFolder.AllKeyValuePairsAsync();
 
             //then
-            Assert.AreEqual(allOfThem.Count, 2);
-            Assert.IsTrue(allOfThem.ContainsKey(firstPair.Key));
-            Assert.IsTrue(allOfThem.ContainsKey(secondPair.Key));
-            Assert.IsTrue(allOfThem.TryGetValue(firstPair.Key, out string firstResult));
-            Assert.AreEqual(firstResult, firstPair.Value);
-            Assert.IsTrue(allOfThem.TryGetValue(secondPair.Key, out string secondResult));
-            Assert.AreEqual(secondResult, secondPair.Value);
+            Assert.Equals(allOfThem.Count, 2);
+            Assert.Equals(true,allOfThem.ContainsKey(firstPair.Key));
+            Assert.Equals(true,allOfThem.ContainsKey(secondPair.Key));
+            Assert.Equals(true,allOfThem.TryGetValue(firstPair.Key, out string firstResult));
+            Assert.Equals(firstResult, firstPair.Value);
+            Assert.Equals(true,allOfThem.TryGetValue(secondPair.Key, out string secondResult));
+            Assert.Equals(secondResult, secondPair.Value);
         }
 
         [Test]
@@ -115,20 +116,20 @@ namespace UT.ConfigurationManager.Api
             var addedFolder = await service.AddFolderAsync(folderName);
 
             //then
-            Assert.IsTrue(isConnected);
-            Assert.NotNull(addedFolder);
+            Assert.Equals(true,isConnected);
+            ClassicAssert.NotNull(addedFolder);
 
             //and then
             var isGet = await service.GetFolderAsync(folderName);
-            Assert.NotNull(isGet);
+            ClassicAssert.NotNull(isGet);
 
             //and then
             var isRemoved = await service.RemoveFolderAsync(addedFolder);
-            Assert.IsTrue(isRemoved);
+            ClassicAssert.IsTrue(isRemoved);
 
             //and then
             var isGetAgain = await service.GetFolderAsync(folderName);
-            Assert.Null(isGetAgain);
+            ClassicAssert.Null(isGetAgain);
         }
 
         [Test]
@@ -150,11 +151,11 @@ namespace UT.ConfigurationManager.Api
             var isAdded = await isGet.AddFolderAsync(newFolderName);
 
             //then
-            Assert.NotNull(isAdded);
+            ClassicAssert.NotNull(isAdded);
 
             //and then
             var allFolderRemoved = await service.RemoveFolderAsync(addedFolder);
-            Assert.IsTrue(allFolderRemoved);
+            ClassicAssert.IsTrue(allFolderRemoved);
         }
 
         [Test]
@@ -175,15 +176,15 @@ namespace UT.ConfigurationManager.Api
             var isKeyAdded = await addedFolder.AddAsync(key, "bar");
 
             //then
-            Assert.IsTrue(isKeyAdded);
+            ClassicAssert.IsTrue(isKeyAdded);
 
             //and then
             var isRemoved = await addedFolder.RemoveAsync(key);
-            Assert.IsTrue(isRemoved);
+            ClassicAssert.IsTrue(isRemoved);
 
             //and then
             var isFolderRemoved = await service.RemoveFolderAsync(addedFolder);
-            Assert.IsTrue(isFolderRemoved);
+            ClassicAssert.IsTrue(isFolderRemoved);
         }
     }
 }
