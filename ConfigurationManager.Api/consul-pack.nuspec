@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+		<metadata>
+			<id>Consul.ConfigurationManager.Api</id>
+			<version>1.0.0.0</version>
+			<authors>barimale</authors>
+			<owners>barimale</owners>
+			<requireLicenseAcceptance>false</requireLicenseAcceptance>
+			<projectUrl>https://github.com/barimale/ConfigurationManager.Api</projectUrl>
+			<description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</description>
+			<tags>Consul</tags>
+			<dependencies>
+				<group targetFramework=".NETCoreApp3.0">
+					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+				</group>
+					<group targetFramework="net8.0">
+						<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+						<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+					</group>
+				<group targetFramework=".NETFramework4.7">
+					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+				</group>
+				<group targetFramework=".NETStandard2.0">
+					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+				</group>
+				<group targetFramework=".NETStandard2.1">
+					<dependency id="Consul" version="0.7.2.6" exclude="Build,Analyzers" />
+					<dependency id="System.Configuration.ConfigurationManager" version="4.7.0" exclude="Build,Analyzers" />
+				</group>
+			</dependencies>
+		</metadata>
+	<files>
+		<file src="bin\Release\netcoreapp3.0\ConfigurationManager.Api.dll" target="lib\netcoreapp3.0" />
+		<file src="bin\Release\netstandard2.0\ConfigurationManager.Api.dll" target="lib\netstandard2.0" />
+		<file src="bin\Release\netstandard2.1\ConfigurationManager.Api.dll" target="lib\netstandard2.1" />
+		<file src="bin\Release\net47\ConfigurationManager.Api.dll" target="lib\net47" />
+		<file src="bin\Release\net8.0\ConfigurationManager.Api.dll" target="lib\net8.0" />
+	</files>
+</package>
