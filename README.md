@@ -1,4 +1,4 @@
-# ConfigurationManager.Api
+# ConfigurationManager.Api, Consul.ConfigurationManager.Api
 It is used for manage of consul instance based on the composite design pattern.
 
 ## 1. Example of read-only client:
