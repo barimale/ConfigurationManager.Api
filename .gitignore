@@ -18,3 +18,5 @@ obj
 /ConfigurationManager.Api/bin/Debug
 /ConfigurationManager.Api/ConfigurationManager.Api.csproj.user
 /UT.ConfigurationManager.Api/bin/Debug/net8.0
+/UT.ConfigurationManager.Api/bin
+/nugetPackages
