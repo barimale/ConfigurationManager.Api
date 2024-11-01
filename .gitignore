@@ -20,3 +20,4 @@ obj
 /UT.ConfigurationManager.Api/bin/Debug/net8.0
 /UT.ConfigurationManager.Api/bin
 /nugetPackages
+/ConfigurationManager.Api/bin
