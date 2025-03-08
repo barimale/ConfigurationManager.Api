@@ -156,7 +156,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                var result = await Client.KV.Delete(key);
+                var result = await Client.KV.DeleteTree(key);
 
                 return result.Response;
             }
