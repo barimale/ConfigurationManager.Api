@@ -1,6 +1,7 @@
 using ConfigurationManager.Api;
 using ConfigurationManager.Api.Helper.Adapters;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -56,8 +57,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = lazyAdapter.AppSettings(secondPair.Key);
 
             //then
-            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -77,8 +78,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = lazyAdapter.ConnectionStrings(secondPair.Key);
 
             //then
-            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -98,8 +99,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = eagerAdapter.AppSettings(secondPair.Key);
 
             //then
-            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
 
         [Test]
@@ -119,8 +120,8 @@ namespace UT.ConfigurationManager.Api
             var appSettingsValueOfTheSecondKey = eagerAdapter.ConnectionStrings(secondPair.Key);
 
             //then
-            Assert.Equals(appSettingsValueOfTheKey, firstPair.Value);
-            Assert.Equals(appSettingsValueOfTheSecondKey, secondPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheKey, firstPair.Value);
+            ClassicAssert.AreEqual(appSettingsValueOfTheSecondKey, secondPair.Value);
         }
     }
 }

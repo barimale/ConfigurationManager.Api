@@ -28,7 +28,7 @@ namespace UT.ConfigurationManager.Api
             var result = service.IsConnected();
 
             //then
-            Assert.Equals(true, result);
+            ClassicAssert.AreEqual(true, result);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace UT.ConfigurationManager.Api
             var result = service.IsConnected();
 
             //then
-            Assert.Equals(true, result);
+            ClassicAssert.AreEqual(true, result);
         }
 
         [Test]
@@ -64,9 +64,9 @@ namespace UT.ConfigurationManager.Api
             var getValue = await service.GetAsync("foo");
 
             //then
-            Assert.Equals(true, isConnected);
-            Assert.Equals(true, isAdded);
-            Assert.Equals(getValue, "bar");
+            ClassicAssert.AreEqual(true, isConnected);
+            ClassicAssert.AreEqual(true, isAdded);
+            ClassicAssert.AreEqual(getValue, "bar");
         }
 
         [Test]
@@ -90,13 +90,13 @@ namespace UT.ConfigurationManager.Api
             var allOfThem = await addedFolder.AllKeyValuePairsAsync();
 
             //then
-            Assert.Equals(allOfThem.Count, 2);
-            Assert.Equals(true,allOfThem.ContainsKey(firstPair.Key));
-            Assert.Equals(true,allOfThem.ContainsKey(secondPair.Key));
-            Assert.Equals(true,allOfThem.TryGetValue(firstPair.Key, out string firstResult));
-            Assert.Equals(firstResult, firstPair.Value);
-            Assert.Equals(true,allOfThem.TryGetValue(secondPair.Key, out string secondResult));
-            Assert.Equals(secondResult, secondPair.Value);
+            ClassicAssert.AreEqual(allOfThem.Count, 2);
+            ClassicAssert.AreEqual(true,allOfThem.ContainsKey(firstPair.Key));
+            ClassicAssert.AreEqual(true,allOfThem.ContainsKey(secondPair.Key));
+            ClassicAssert.AreEqual(true,allOfThem.TryGetValue(firstPair.Key, out string firstResult));
+            ClassicAssert.AreEqual(firstResult, firstPair.Value);
+            ClassicAssert.AreEqual(true,allOfThem.TryGetValue(secondPair.Key, out string secondResult));
+            ClassicAssert.AreEqual(secondResult, secondPair.Value);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace UT.ConfigurationManager.Api
             var addedFolder = await service.AddFolderAsync(folderName);
 
             //then
-            Assert.Equals(true,isConnected);
+            ClassicAssert.AreEqual(true,isConnected);
             ClassicAssert.NotNull(addedFolder);
 
             //and then
