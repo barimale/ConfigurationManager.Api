@@ -84,7 +84,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                name = GetAbsolutName(name);
+                name = GetAbsoluteName(name);
 
                 var pair = new KVPair(name)
                 {
@@ -101,7 +101,7 @@ namespace ConfigurationManager.Api
             }
         }
 
-        private string GetAbsolutName(string name)
+        private string GetAbsoluteName(string name)
         {
             name = string.Concat(this.GetLocationPath(), name);
 
@@ -122,7 +122,7 @@ namespace ConfigurationManager.Api
         {
             try
             {
-                name = GetAbsolutName(name);
+                name = GetAbsoluteName(name);
 
                 var alreadyExist = await Client.KV.Get(name, token);
                 if (alreadyExist == null || alreadyExist.StatusCode != System.Net.HttpStatusCode.OK)
