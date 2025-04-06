@@ -6,7 +6,7 @@ It is used for manage of consul instance based on the composite design pattern.
  IReadOnly service = new ConfigurationManager.Api.Manager(
 	InputData.HostName,
 	InputData.Port,
-	InputData.ServiceHostName);
+	InputData.ServiceHostName).AsReadOnly();
 ```
 
 ## 2. Example of read-write manager:
@@ -14,7 +14,7 @@ It is used for manage of consul instance based on the composite design pattern.
 IManager service = new ConfigurationManager.Api.Manager(
 	InputData.HostName,
 	InputData.Port,
-	InputData.ServiceHostName);
+	InputData.ServiceHostName).AsManager();
 ```
 # Configuration.Api.Helpers
 Adapter is provided as a shell for AppSettings and ConnectionStrings. It is initialized by using
@@ -25,7 +25,7 @@ already existed read-only client instance.
 IReadOnly manager = new Manager(
 	InputData.HostName, 
 	InputData.Port, 
-	InputData.ServiceHostName);
+	InputData.ServiceHostName).AsReadOnly();
 
 var lazyAdapter = new LazyAdapter(manager);
 
@@ -36,7 +36,7 @@ var @VALUE = lazyAdapter.AppSettings("KEY");
 IReadOnly manager = new Manager(
 	InputData.HostName, 
 	InputData.Port, 
-	InputData.ServiceHostName);
+	InputData.ServiceHostName).AsReadOnly();
 
 var eagerAdapter = new EagerAdapter(manager);
 

@@ -28,7 +28,8 @@ namespace UT.ConfigurationManager.Api
             service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsManager();
 
             addedFolder = await service.AddFolderAsync(appFolder).ConfigureAwait(false);
             var appSettingsFolder = await addedFolder.AddFolderAsync(EagerAdapter.AppSettingsName).ConfigureAwait(false);
@@ -48,7 +49,8 @@ namespace UT.ConfigurationManager.Api
                 InputData.HostName, 
                 InputData.Port, 
                 InputData.ServiceHostName,
-                appFolder);
+                appFolder)
+                .AsReadOnly();
 
             var lazyAdapter = new LazyAdapter(readOnlyService);
 
@@ -69,7 +71,8 @@ namespace UT.ConfigurationManager.Api
                InputData.HostName,
                InputData.Port,
                InputData.ServiceHostName,
-               appFolder);
+               appFolder)
+                .AsReadOnly();
 
             var lazyAdapter = new LazyAdapter(readOnlyService);
 
@@ -90,7 +93,8 @@ namespace UT.ConfigurationManager.Api
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName,
-                appFolder);
+                appFolder)
+                .AsReadOnly();
 
             var eagerAdapter = new EagerAdapter(readOnlyService);
 
@@ -111,7 +115,8 @@ namespace UT.ConfigurationManager.Api
                InputData.HostName,
                InputData.Port,
                InputData.ServiceHostName,
-               appFolder);
+               appFolder)
+                .AsReadOnly();
 
             var eagerAdapter = new EagerAdapter(readOnlyService);
 

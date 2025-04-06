@@ -61,6 +61,16 @@ namespace ConfigurationManager.Api
             Parent = parent;
         }
 
+        public IManager AsManager()
+        {
+            return (IManager)this;
+        }
+
+        public IReadOnly AsReadOnly()
+        {
+            return (IReadOnly)this;
+        }
+
         public async Task<bool> AddAsync(string key, string value)
         {
             try

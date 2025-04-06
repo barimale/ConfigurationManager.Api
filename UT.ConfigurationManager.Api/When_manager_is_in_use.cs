@@ -22,7 +22,7 @@ namespace UT.ConfigurationManager.Api
             IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName).AsManager();
 
             //when
             var result = service.IsConnected();
@@ -38,7 +38,8 @@ namespace UT.ConfigurationManager.Api
             IReadOnly service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsReadOnly();
 
             //when
             var result = service.IsConnected();
@@ -55,7 +56,8 @@ namespace UT.ConfigurationManager.Api
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName,
-                Guid.NewGuid().ToString());
+                Guid.NewGuid().ToString())
+                .AsManager();
 
             var isConnected = service.IsConnected();
 
@@ -78,7 +80,8 @@ namespace UT.ConfigurationManager.Api
             IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsManager();
 
             var addedFolder = await service.AddFolderAsync(folderName);
             var firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
@@ -108,7 +111,8 @@ namespace UT.ConfigurationManager.Api
             IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsManager();
 
             var isConnected = service.IsConnected();
 
@@ -141,7 +145,8 @@ namespace UT.ConfigurationManager.Api
             IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsManager();
 
             var addedFolder = await service.AddFolderAsync(folderName);
             var isGet = await service.GetFolderAsync(folderName);
@@ -167,7 +172,8 @@ namespace UT.ConfigurationManager.Api
             IManager service = new Manager(
                 InputData.HostName,
                 InputData.Port,
-                InputData.ServiceHostName);
+                InputData.ServiceHostName)
+                .AsManager();
 
             var addedFolder = await service.AddFolderAsync(folderName);
             var key = "foo";
