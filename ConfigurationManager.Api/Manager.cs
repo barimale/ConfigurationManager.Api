@@ -105,9 +105,9 @@ namespace ConfigurationManager.Api
 
                 return result.Response ? new Manager(HostName, Port, ServiceHostName, name, this) : throw new Exception();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -142,9 +142,9 @@ namespace ConfigurationManager.Api
 
                 return new Manager(HostName, Port, ServiceHostName, name, this);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -156,9 +156,9 @@ namespace ConfigurationManager.Api
 
                 return await RemoveAsync(path);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -170,9 +170,9 @@ namespace ConfigurationManager.Api
 
                 return result.Response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -189,9 +189,9 @@ namespace ConfigurationManager.Api
 
                 return string.Empty;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
