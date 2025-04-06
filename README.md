@@ -3,7 +3,7 @@ It is used for manage of consul instance based on the composite design pattern.
 
 ## 1. Example of read-only client:
 ```
- IReadOnly service = new ConfigurationManager.Api.Manager(
+ var service = new ConfigurationManager.Api.Manager(
 	InputData.HostName,
 	InputData.Port,
 	InputData.ServiceHostName).AsReadOnly();
@@ -11,7 +11,7 @@ It is used for manage of consul instance based on the composite design pattern.
 
 ## 2. Example of read-write manager:
 ```
-IManager service = new ConfigurationManager.Api.Manager(
+var service = new ConfigurationManager.Api.Manager(
 	InputData.HostName,
 	InputData.Port,
 	InputData.ServiceHostName).AsManager();
@@ -22,7 +22,7 @@ already existed read-only client instance.
 
 ## 1. Usage of lazyAdapter:
 ```
-IReadOnly manager = new Manager(
+var manager = new Manager(
 	InputData.HostName, 
 	InputData.Port, 
 	InputData.ServiceHostName).AsReadOnly();
@@ -33,7 +33,7 @@ var @VALUE = lazyAdapter.AppSettings("KEY");
 ```
 ## 2. Usage of eagerAdapter:
 ```
-IReadOnly manager = new Manager(
+var manager = new Manager(
 	InputData.HostName, 
 	InputData.Port, 
 	InputData.ServiceHostName).AsReadOnly();
