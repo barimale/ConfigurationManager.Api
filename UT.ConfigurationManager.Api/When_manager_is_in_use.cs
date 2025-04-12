@@ -93,6 +93,7 @@ namespace UT.ConfigurationManager.Api
 
             //when
             var allOfThem = await addedFolder2.AllKeyValuePairsAsync();
+            var none = await addedFolder.AllKeyValuePairsAsync();
 
             //then
             ClassicAssert.AreEqual(allOfThem.Count, 2);

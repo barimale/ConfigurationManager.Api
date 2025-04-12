@@ -197,12 +197,6 @@ namespace ConfigurationManager.Api
 
         public string GetLocationPath()
         {
-            if (HasParent())
-            {
-                var subPath = Parent.GetLocationPath();
-                return !string.IsNullOrEmpty(subPath) ? MainFolder : MainFolder;
-            }
-
             return MainFolder;
         }
 
