@@ -86,8 +86,8 @@ namespace UT.ConfigurationManager.Api
 
             var addedFolder = await service.AddFolderAsync(folderName);
             var addedFolder2 = await addedFolder.AddFolderAsync(folderName2);
-            var firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
-            var secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
+            var firstPair = new KeyValuePair<string, string>("keyOne1", "valueOne1");
+            var secondPair = new KeyValuePair<string, string>("keyTwo2", "valueTwo2");
             await addedFolder2.AddAsync(firstPair.Key, firstPair.Value);
             await addedFolder2.AddAsync(secondPair.Key, secondPair.Value);
 
