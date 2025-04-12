@@ -76,6 +76,7 @@ namespace UT.ConfigurationManager.Api
         {
             //given 
             var folderName = Guid.NewGuid().ToString();
+            var folderName2 = Guid.NewGuid().ToString();
 
             IManager service = new Manager(
                 InputData.HostName,
@@ -84,13 +85,14 @@ namespace UT.ConfigurationManager.Api
                 .AsManager();
 
             var addedFolder = await service.AddFolderAsync(folderName);
+            var addedFolder2 = await addedFolder.AddFolderAsync(folderName2);
             var firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
             var secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
-            await addedFolder.AddAsync(firstPair.Key, firstPair.Value);
-            await addedFolder.AddAsync(secondPair.Key, secondPair.Value);
+            await addedFolder2.AddAsync(firstPair.Key, firstPair.Value);
+            await addedFolder2.AddAsync(secondPair.Key, secondPair.Value);
 
             //when
-            var allOfThem = await addedFolder.AllKeyValuePairsAsync();
+            var allOfThem = await addedFolder2.AllKeyValuePairsAsync();
 
             //then
             ClassicAssert.AreEqual(allOfThem.Count, 2);
