@@ -90,12 +90,14 @@ namespace UT.ConfigurationManager.Api
             var secondPair = new KeyValuePair<string, string>("keyTwo2", "valueTwo2");
             await addedFolder2.AddAsync(firstPair.Key, firstPair.Value);
             await addedFolder2.AddAsync(secondPair.Key, secondPair.Value);
-
+            await addedFolder.AddAsync(firstPair.Key, firstPair.Value);
+            await addedFolder.AddAsync(secondPair.Key, secondPair.Value);
             //when
             var allOfThem = await addedFolder2.AllKeyValuePairsAsync();
-            var none = await addedFolder.AllKeyValuePairsAsync();
+            var allOfThem2 = await addedFolder.AllKeyValuePairsAsync();
 
             //then
+            ClassicAssert.AreEqual(allOfThem2.Count, 2);
             ClassicAssert.AreEqual(allOfThem.Count, 2);
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(firstPair.Key));
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(secondPair.Key));

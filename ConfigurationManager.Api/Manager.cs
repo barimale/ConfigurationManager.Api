@@ -255,7 +255,8 @@ namespace ConfigurationManager.Api
 
                     var result = await GetAsync(key);
                     var index = key.LastIndexOf('/');
-                    keyValues.Add(key.Substring(index+1, key.Length - index -1), result);
+                    if(!keyValues.ContainsKey(key.Substring(index + 1, key.Length - index - 1)))
+                        keyValues.Add(key.Substring(index+1, key.Length - index -1), result);
                 }
 
                 return keyValues;
