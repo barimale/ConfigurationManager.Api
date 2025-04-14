@@ -212,11 +212,6 @@ namespace ConfigurationManager.Api
             }
         }
 
-        private bool HasParent()
-        {
-            return Parent != null;
-        }
-
         Task<string> IReadOnly.GetAsync(string key)
         {
             var finalKey = string.Concat(GetLocationPath(), "/", key);
