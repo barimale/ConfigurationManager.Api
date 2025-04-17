@@ -49,7 +49,7 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
-        public async Task I_d_like_to_add_dummy_key_to_wrong_folder()
+        public async Task I_d_like_to_add_dummy_key()
         {
             //given 
             IManager service = new Manager(
@@ -72,7 +72,7 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
-        public async Task I_d_like_to_add_dummy_key()
+        public async Task I_d_like_to_add_folder_with_wrong_name()
         {
             var ex = Assert.ThrowsAsync<ArgumentException>(
              async () =>
