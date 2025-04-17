@@ -243,7 +243,15 @@ namespace ConfigurationManager.Api
                 var allOfThem = await Client.KV.Keys(finalPath, token);
 
                 var keyValues = new Dictionary<string, string>();
-                foreach (var key in allOfThem.Response.ToList())
+                foreach (var key in allOfThem.Response
+                    .Where(p => p.StartsWith(finalPath))
+                    .Where(pp =>
+                    {
+                        var trimmed = pp.Substring(finalPath.Length - 1);
+                        int count = trimmed.Split('/').Length - 1;
+                        return count == 1 && trimmed != string.Empty;
+                    })
+                    .ToList())
                 {
                     if (key.EndsWith("/"))
                         continue;
