@@ -88,10 +88,12 @@ namespace UT.ConfigurationManager.Api
             var addedFolder2 = await addedFolder.AddFolderAsync(folderName2);
             var firstPair = new KeyValuePair<string, string>("keyOne1", "valueOne1");
             var secondPair = new KeyValuePair<string, string>("keyTwo2", "valueTwo2");
+            var firstPair2 = new KeyValuePair<string, string>("keyOne1B", "valueOne1B");
+            var secondPair2 = new KeyValuePair<string, string>("keyTwo2B", "valueTwo2B");
             await addedFolder2.AddAsync(firstPair.Key, firstPair.Value);
             await addedFolder2.AddAsync(secondPair.Key, secondPair.Value);
-            await addedFolder.AddAsync(firstPair.Key, firstPair.Value);
-            await addedFolder.AddAsync(secondPair.Key, secondPair.Value);
+            await addedFolder.AddAsync(firstPair2.Key, firstPair2.Value);
+            await addedFolder.AddAsync(secondPair2.Key, secondPair2.Value);
             //when
             var allOfThem = await addedFolder2.AllKeyValuePairsAsync();
             var allOfThem2 = await addedFolder.AllKeyValuePairsAsync();
@@ -101,8 +103,8 @@ namespace UT.ConfigurationManager.Api
             ClassicAssert.AreEqual(allOfThem.Count, 2);
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(firstPair.Key));
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(secondPair.Key));
-            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(firstPair.Key));
-            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(secondPair.Key));
+            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(firstPair2.Key));
+            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(secondPair2.Key));
             ClassicAssert.AreEqual(true,allOfThem.TryGetValue(firstPair.Key, out string firstResult));
             ClassicAssert.AreEqual(firstResult, firstPair.Value);
             ClassicAssert.AreEqual(true,allOfThem.TryGetValue(secondPair.Key, out string secondResult));
