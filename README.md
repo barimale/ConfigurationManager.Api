@@ -15,6 +15,9 @@ var service = new ConfigurationManager.Api.Manager(
 	InputData.HostName,
 	InputData.Port,
 	InputData.ServiceHostName).AsManager();
+
+var isAdded = await service.AddAsync("foo", "bar");
+var getValue = await service.GetAsync("foo");
 ```
 # Configuration.Api.Helpers
 Adapter is provided as a shell for AppSettings and ConnectionStrings. It is initialized by using
