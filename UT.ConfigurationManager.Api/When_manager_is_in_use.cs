@@ -101,6 +101,8 @@ namespace UT.ConfigurationManager.Api
             ClassicAssert.AreEqual(allOfThem.Count, 2);
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(firstPair.Key));
             ClassicAssert.AreEqual(true,allOfThem.ContainsKey(secondPair.Key));
+            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(firstPair.Key));
+            ClassicAssert.AreEqual(true, allOfThem2.ContainsKey(secondPair.Key));
             ClassicAssert.AreEqual(true,allOfThem.TryGetValue(firstPair.Key, out string firstResult));
             ClassicAssert.AreEqual(firstResult, firstPair.Value);
             ClassicAssert.AreEqual(true,allOfThem.TryGetValue(secondPair.Key, out string secondResult));
