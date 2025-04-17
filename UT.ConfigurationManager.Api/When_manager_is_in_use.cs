@@ -49,7 +49,7 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
-        public async Task I_d_like_to_add_dummy_key()
+        public async Task I_d_like_to_add_dummy_key_to_wrong_folder()
         {
             //given 
             IManager service = new Manager(
@@ -69,6 +69,33 @@ namespace UT.ConfigurationManager.Api
             ClassicAssert.AreEqual(true, isConnected);
             ClassicAssert.AreEqual(true, isAdded);
             ClassicAssert.AreEqual(getValue, "bar");
+        }
+
+        [Test]
+        public async Task I_d_like_to_add_dummy_key()
+        {
+            var ex = Assert.ThrowsAsync<ArgumentException>(
+             async () =>
+             {
+                 //given 
+                 IManager service = new Manager(
+                     InputData.HostName,
+                     InputData.Port,
+                     InputData.ServiceHostName,
+                     Guid.NewGuid().ToString())
+                     .AsManager();
+
+                 var isConnected = service.IsConnected();
+
+                 //when
+                 var addedFolder = await service.AddFolderAsync("foobar/");
+                 var isAdded = await addedFolder.AddAsync("foo", "bar");
+                 var getValue = await addedFolder.GetAsync("foo");
+
+             });
+
+            //then
+            ClassicAssert.AreEqual("Argument name cannot contain / or \'", ex.Message);
         }
 
         [Test]

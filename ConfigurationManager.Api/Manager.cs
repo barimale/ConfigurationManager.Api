@@ -94,6 +94,8 @@ namespace ConfigurationManager.Api
         {
             try
             {
+                if (name.Contains('/') || name.Contains('\''))
+                    throw new ArgumentException("Argument name cannot contain / or \'");
                 name = GetAbsoluteName(name);
 
                 var pair = new KVPair(name)
