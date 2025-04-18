@@ -62,13 +62,13 @@ namespace UT.ConfigurationManager.Api
             var isConnected = service.IsConnected();
 
             //when
-            var isAdded = await service.AddAsync("foo", "bar");
+            var isAdded = await service.AddAsync("foo", "ba/r");
             var getValue = await service.GetAsync("foo");
 
             //then
             ClassicAssert.AreEqual(true, isConnected);
             ClassicAssert.AreEqual(true, isAdded);
-            ClassicAssert.AreEqual(getValue, "bar");
+            ClassicAssert.AreEqual(getValue, "ba/r");
         }
 
         [Test]
@@ -97,6 +97,34 @@ namespace UT.ConfigurationManager.Api
             //then
             ClassicAssert.AreEqual("Argument name cannot contain / or \'", ex.Message);
         }
+
+        [Test]
+        public async Task I_d_like_to_add_keyvalue_pair__with_wrong_name()
+        {
+            var ex = Assert.ThrowsAsync<ArgumentException>(
+             async () =>
+             {
+                 //given 
+                 IManager service = new Manager(
+                     InputData.HostName,
+                     InputData.Port,
+                     InputData.ServiceHostName,
+                     Guid.NewGuid().ToString())
+                     .AsManager();
+
+                 var isConnected = service.IsConnected();
+
+                 //when
+                 var addedFolder = await service.AddFolderAsync("foobar");
+                 var isAdded = await addedFolder.AddAsync("foo/", "ba//r");
+                 var getValue = await addedFolder.GetAsync("foo/");
+
+             });
+
+            //then
+            ClassicAssert.AreEqual("Argument key cannot contain / or \'", ex.Message);
+        }
+
 
         [Test]
         public async Task I_d_like_to_get_all_key_values_from_unique_folder()

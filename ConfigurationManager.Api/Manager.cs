@@ -222,6 +222,9 @@ namespace ConfigurationManager.Api
 
         Task<bool> IManager.AddAsync(string key, string value)
         {
+            if(key.Contains('/') || key.Contains('\''))
+                throw new ArgumentException("Argument key cannot contain / or \'");
+
             var finalKey = string.Concat(GetLocationPath(), "/", key);
             return AddAsync(finalKey, value);
         }
