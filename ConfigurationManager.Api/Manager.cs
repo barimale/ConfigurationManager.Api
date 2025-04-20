@@ -95,7 +95,7 @@ namespace ConfigurationManager.Api
             try
             {
                 if (name.Contains('/') || name.Contains('\''))
-                    throw new ArgumentException("Argument name cannot contain / or \'");
+                    throw new ArgumentException($"Argument {nameof(name)} cannot contain / or \'");
                 name = GetAbsoluteName(name);
 
                 var pair = new KVPair(name)
@@ -223,7 +223,7 @@ namespace ConfigurationManager.Api
         Task<bool> IManager.AddAsync(string key, string value)
         {
             if(key.Contains('/') || key.Contains('\''))
-                throw new ArgumentException("Argument key cannot contain / or \'");
+                throw new ArgumentException($"Argument {nameof(key)} cannot contain / or \'");
 
             var finalKey = string.Concat(GetLocationPath(), "/", key);
             return AddAsync(finalKey, value);
