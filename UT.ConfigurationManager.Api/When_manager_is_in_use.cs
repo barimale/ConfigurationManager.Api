@@ -32,22 +32,26 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
-        public void I_d_like_to_get_strings()
+        public async Task I_d_like_to_get_data_from_appsettings()
         {
             //given 
-            IManager service = new Manager(
+            var service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName).AsManager();
 
+            var appSettingsFolder = await service.AddFolderAsync(Manager.GetAppSettingsFolderName());
+
             //when
-            var cs = Manager.GetConnectionStringsFolderName();
-            var @as = Manager.GetAppSettingsFolderName();
+            var isAdded = await appSettingsFolder.AddAsync("foo", "bar");
+            var getValue = await appSettingsFolder.GetAsync("foo");
 
             //then
-            ClassicAssert.NotNull(cs);
-            ClassicAssert.NotNull(@as);
+            ClassicAssert.AreEqual(getValue, "bar");
         }
+
+
+
 
         [Test]
         public void I_d_like_to_connect_to_consul_instance_as_read_only_client()
