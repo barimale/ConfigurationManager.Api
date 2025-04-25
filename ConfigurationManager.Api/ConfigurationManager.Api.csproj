@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;netstandard2.1;netstandard2.0;net47;net8.0</TargetFrameworks>
-    <AssemblyVersion>3.0.3.16</AssemblyVersion>
-    <FileVersion>3.0.3.16</FileVersion>
+    <AssemblyVersion>3.0.3.17</AssemblyVersion>
+    <FileVersion>3.0.3.17</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.0.3.16</Version>
+    <Version>3.0.3.17</Version>
     <Authors>barimale</Authors>
     <Description>.NET Consul Client provided with eager and lazy appSettings and connectionStrings adapters</Description>
     <RepositoryUrl>https://github.com/barimale/ConfigurationManager.Api</RepositoryUrl>

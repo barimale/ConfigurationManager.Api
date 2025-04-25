@@ -28,7 +28,7 @@ private KeyValuePair<string, string> secondPair = new KeyValuePair<string, strin
 	"Database", 
 	"Data Source=localhost,1500;Database=DB;Uid=sa;Password=Password_123#; TrustServerCertificate=True");
 
-service = new Manager(
+var service = new Manager(
                 InputData.HostName,
                 InputData.Port,
                 InputData.ServiceHostName)
