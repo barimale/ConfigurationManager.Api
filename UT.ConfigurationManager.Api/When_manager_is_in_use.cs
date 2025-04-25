@@ -32,6 +32,24 @@ namespace UT.ConfigurationManager.Api
         }
 
         [Test]
+        public void I_d_like_to_get_strings()
+        {
+            //given 
+            IManager service = new Manager(
+                InputData.HostName,
+                InputData.Port,
+                InputData.ServiceHostName).AsManager();
+
+            //when
+            var cs = Manager.GetConnectionStringsFolderName();
+            var @as = Manager.GetAppSettingsFolderName();
+
+            //then
+            ClassicAssert.NotNull(cs);
+            ClassicAssert.NotNull(@as);
+        }
+
+        [Test]
         public void I_d_like_to_connect_to_consul_instance_as_read_only_client()
         {
             //given 

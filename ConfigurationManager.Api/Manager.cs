@@ -61,6 +61,16 @@ namespace ConfigurationManager.Api
             Parent = parent;
         }
 
+        public static string GetConnectionStringsFolderName()
+        {
+            return "ConnectionStrings";
+        }
+
+        public static string GetAppSettingsFolderName()
+        {
+            return "AppSettings";
+        }
+
         public IManager AsManager()
         {
             return (IManager)this;

@@ -67,9 +67,9 @@ namespace ConfigurationManager.Api.Helper.Adapters
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -93,9 +93,9 @@ namespace ConfigurationManager.Api.Helper.Adapters
                             return seed;
                         });
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -120,9 +120,9 @@ namespace ConfigurationManager.Api.Helper.Adapters
                             return seed;
                         });
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }
