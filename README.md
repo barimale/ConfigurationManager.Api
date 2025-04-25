@@ -22,7 +22,7 @@ var getValue = await service.GetAsync("foo");
 
 ## 3. Example of appSettings and connectionStrings:
 ```
-private string appFolder = Guid.NewGuid().ToString().ToUpper();
+private string appFolder = Guid.NewGuid().ToString();
 private KeyValuePair<string, string> firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
 private KeyValuePair<string, string> secondPair = new KeyValuePair<string, string>("keyTwo", "valueTwo");
 
