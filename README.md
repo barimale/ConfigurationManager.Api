@@ -20,7 +20,7 @@ var isAdded = await service.AddAsync("foo", "bar");
 var getValue = await service.GetAsync("foo");
 ```
 
-## 3. Example of appsettings and connectionstrings
+## 3. Example of appSettings and connectionStrings:
 ```
 private string appFolder = Guid.NewGuid().ToString().ToUpper();
 private KeyValuePair<string, string> firstPair = new KeyValuePair<string, string>("keyOne", "valueOne");
