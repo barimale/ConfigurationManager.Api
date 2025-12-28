@@ -1,6 +1,4 @@
 # ConfigurationManager.Api, Consul.ConfigurationManager.Api
-It is used for manage of consul instance.
-
 ## 1. Example of read-only client:
 ```
  var service = new ConfigurationManager.Api.Manager(
