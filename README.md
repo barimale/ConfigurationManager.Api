@@ -64,3 +64,5 @@ var eagerAdapter = new EagerAdapter(manager);
 
 var @VALUE = eagerAdapter.AppSettings("KEY");
 ```
+## 3. Usage in DI:
+Please refer to ./Examples/GUIDE.md and ./Examples/REDME.md for more details about using in DI.

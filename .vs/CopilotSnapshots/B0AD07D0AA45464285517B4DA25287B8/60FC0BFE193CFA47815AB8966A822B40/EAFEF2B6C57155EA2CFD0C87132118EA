@@ -1,0 +1,117 @@
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ConfigurationManager.Api
+{
+    public class ConsulConfigurationProvider : ConfigurationProvider, IConfigurationProvider
+    {
+        private readonly ConsulConfigurationSource _source;
+        private Manager _manager;
+        private Dictionary<string, string> _data;
+
+        public ConsulConfigurationProvider(ConsulConfigurationSource source)
+        {
+            _source = source ?? throw new ArgumentNullException(nameof(source));
+            _data = new Dictionary<string, string>();
+        }
+
+        public override void Load()
+        {
+            try
+            {
+                _manager = string.IsNullOrEmpty(_source.MainFolder)
+                    ? new Manager(_source.HostName, _source.Port, _source.ServiceHostName)
+                    : new Manager(_source.HostName, _source.Port, _source.ServiceHostName, _source.MainFolder);
+
+                if (_manager.IsConnected())
+                {
+                    LoadDataAsync().Wait();
+                }
+                else if (!_source.Optional)
+                {
+                    throw new InvalidOperationException($"Cannot connect to Consul at {_source.HostName}:{_source.Port}");
+                }
+            }
+            catch (Exception ex) when (_source.Optional)
+            {
+                // If optional, log and continue
+                System.Diagnostics.Debug.WriteLine($"ConsulConfigurationProvider failed to load: {ex.Message}");
+            }
+        }
+
+        private async Task LoadDataAsync()
+        {
+            try
+            {
+                _data.Clear();
+
+                var allPairs = await _manager.AllKeyValuePairsAsync();
+
+                if (allPairs != null)
+                {
+                    foreach (var kvp in allPairs)
+                    {
+                        _data[kvp.Key] = kvp.Value;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!_source.Optional)
+                {
+                    throw;
+                }
+                System.Diagnostics.Debug.WriteLine($"Error loading Consul configuration: {ex.Message}");
+            }
+        }
+
+        public override bool TryGet(string key, out string value)
+        {
+            return _data.TryGetValue(key, out value);
+        }
+
+        public override void Set(string key, string value)
+        {
+            _data[key] = value;
+            base.Set(key, value);
+        }
+
+        public override IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
+        {
+            var results = new List<string>();
+            var earlierKeysList = earlierKeys.ToList();
+
+            if (parentPath == null)
+            {
+                foreach (var key in _data.Keys)
+                {
+                    var resultKey = key.Split('/')[0];
+                    if (!results.Contains(resultKey) && !earlierKeysList.Contains(resultKey))
+                    {
+                        results.Add(resultKey);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var key in _data.Keys)
+                {
+                    if (key.StartsWith(parentPath + "/"))
+                    {
+                        var temp = key.Substring(parentPath.Length + 1);
+                        var resultKey = temp.Split('/')[0];
+                        if (!results.Contains(resultKey) && !earlierKeysList.Contains(resultKey))
+                        {
+                            results.Add(resultKey);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+    }
+}
