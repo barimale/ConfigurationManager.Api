@@ -65,7 +65,7 @@ var eagerAdapter = new EagerAdapter(manager);
 var @VALUE = eagerAdapter.AppSettings("KEY");
 ```
 ## 3. Usage in DI:
-Do use it in DI please do as follows:
+To use it in DI please do as follows:
 ```
 var builder = WebApplication.CreateBuilder(args);
 
