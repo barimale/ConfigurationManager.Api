@@ -71,14 +71,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddConsul(
-                    hostName: "http://127.0.0.1",
-                    port: 8500,
-                    serviceHostName: "DC1",
-                    mainFolder: "apps/myapp"
-                )
-                .Build();
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddConsul(
+        hostName: "http://127.0.0.1",
+        port: 8500,
+        serviceHostName: "DC1",
+        mainFolder: "apps/myapp"
+    )
+    .Build();
 
 // Register IConfiguration in DI container
 builder.Services.AddSingleton<IConfiguration>(configuration);
