@@ -65,4 +65,21 @@ var eagerAdapter = new EagerAdapter(manager);
 var @VALUE = eagerAdapter.AppSettings("KEY");
 ```
 ## 3. Usage in DI:
-Please refer to ./GUIDE.md for more details about using in DI.
+Do use it in DI please do as follows:
+```
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddConsul(
+                    hostName: "http://127.0.0.1",
+                    port: 8500,
+                    serviceHostName: "DC1",
+                    mainFolder: "apps/myapp"
+                )
+                .Build();
+
+// Register IConfiguration in DI container
+builder.Services.AddSingleton<IConfiguration>(configuration);
+```
