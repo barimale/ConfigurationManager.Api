@@ -21,3 +21,5 @@ obj
 /UT.ConfigurationManager.Api/bin
 /nugetPackages
 /ConfigurationManager.Api/bin
+/Examples/Example.ConfigurationManager.Consumer/bin
+/Examples/Example.ConfigurationManager.Consumer/obj
