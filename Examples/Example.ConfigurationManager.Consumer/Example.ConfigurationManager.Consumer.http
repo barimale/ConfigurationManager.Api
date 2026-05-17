@@ -1,0 +1,6 @@
+@Example.ConfigurationManager.Consumer_HostAddress = http://localhost:5161
+
+GET {{Example.ConfigurationManager.Consumer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

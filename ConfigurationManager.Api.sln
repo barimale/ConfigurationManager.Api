@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consul", "Consul", "{625581
 		ConfigurationManager.Scripts\standalone.bat = ConfigurationManager.Scripts\standalone.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.ConfigurationManager.Consumer", "Examples\Example.ConfigurationManager.Consumer\Example.ConfigurationManager.Consumer.csproj", "{1DA48D80-F51A-4A24-85F4-5589C7EE4FBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{92055353-6F77-4B28-A78B-364E043D0D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92055353-6F77-4B28-A78B-364E043D0D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92055353-6F77-4B28-A78B-364E043D0D61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA48D80-F51A-4A24-85F4-5589C7EE4FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA48D80-F51A-4A24-85F4-5589C7EE4FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA48D80-F51A-4A24-85F4-5589C7EE4FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA48D80-F51A-4A24-85F4-5589C7EE4FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
