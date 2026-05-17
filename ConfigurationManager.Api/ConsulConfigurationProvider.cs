@@ -9,7 +9,7 @@ namespace ConfigurationManager.Api
     public class ConsulConfigurationProvider : ConfigurationProvider, IConfigurationProvider
     {
         private readonly ConsulConfigurationSource _source;
-        private Manager _manager;
+        private IReadOnly _manager;
         private Dictionary<string, string> _data;
 
         public ConsulConfigurationProvider(ConsulConfigurationSource source)
@@ -23,8 +23,8 @@ namespace ConfigurationManager.Api
             try
             {
                 _manager = string.IsNullOrEmpty(_source.MainFolder)
-                    ? new Manager(_source.HostName, _source.Port, _source.ServiceHostName)
-                    : new Manager(_source.HostName, _source.Port, _source.ServiceHostName, _source.MainFolder);
+                    ? new Manager(_source.HostName, _source.Port, _source.ServiceHostName).AsReadOnly()
+                    : new Manager(_source.HostName, _source.Port, _source.ServiceHostName, _source.MainFolder).AsReadOnly();
 
                 if (_manager.IsConnected())
                 {
